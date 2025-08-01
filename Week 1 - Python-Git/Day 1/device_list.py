@@ -1,3 +1,4 @@
+# Device list
 devices = [
     {
         'device_type': 'cisco_ios',
