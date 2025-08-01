@@ -12,4 +12,3 @@ ssh = ConnectHandler(**router)
 ssh.enable()
 result = ssh.send_command('show ip int b')
 print(result)
-dsd
