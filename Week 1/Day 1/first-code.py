@@ -4,7 +4,7 @@ router = {
     'device_type': 'cisco_ios',
     'host': '192.168.220.50',
     'username': 'Samuel',
-    'password': 'Samuel@123',
+    'password': 'Samuel@1234',
     'port': 22
 }
 
