@@ -13,12 +13,9 @@ for device in devices:
             enable_device(conn, device)
 
             # Perform command execution
-            output1 = execute_command(conn, 'show ip int b')
-            output2 = config_device(conn, commands)
-            output3 = file_config(conn, 'file-config.txt')
-            print(output1, "\n")
-            print(output2, "\n")
-            print(output3, "\n")
+            execute_command(conn, 'show ip int b')
+            config_device(conn, commands)
+            file_config(conn, 'file-config.txt')
 
             # Disconnect from device
             device_disconnect(conn)

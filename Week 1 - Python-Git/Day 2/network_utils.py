@@ -26,7 +26,8 @@ def execute_command(ssh, command):
     try:
         #print("[+] Attempting command execution on", device['host'])
         result = ssh.send_command(command)
-        return result
+        #return result
+        print(result)
     except Exception as e:
         print(e)
         return None
@@ -35,7 +36,8 @@ def execute_command(ssh, command):
 def config_device(ssh, config):
     try:
         result = ssh.send_config_set(config)
-        return result
+        #return result
+        print(result)
     except Exception as e:
         print(e)
 
@@ -43,7 +45,8 @@ def config_device(ssh, config):
 def file_config(ssh, conf):
     try:
         result = ssh.send_config_from_file(conf)
-        return result
+        #return result
+        print(result)
     except Exception as e:
         print(e)
 
