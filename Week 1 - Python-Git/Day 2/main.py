@@ -1,6 +1,6 @@
 # Import relevant modules
-from device_list import devices
-from network_utils import connect_device, enable_device, execute_command, device_disconnect
+from info import devices, commands
+from network_utils import connect_device, enable_device, execute_command, device_disconnect, config_device, file_config
 
 # Loop through all devices
 for device in devices:
@@ -11,9 +11,15 @@ for device in devices:
         if conn:
             # Enter enable mode
             enable_device(conn, device)
+
             # Perform command execution
-            output = execute_command(conn, 'show ip int b')
-            print(output)
+            output1 = execute_command(conn, 'show ip int b')
+            output2 = config_device(conn, commands)
+            output3 = file_config(conn, 'file-config.txt')
+            print(output1, "\n")
+            print(output2, "\n")
+            print(output3, "\n")
+
             # Disconnect from device
             device_disconnect(conn)
         else:

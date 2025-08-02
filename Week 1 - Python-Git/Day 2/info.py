@@ -29,3 +29,11 @@ devices = [
         'port': 22
     }
 ]
+
+# Commands
+commands = [
+    'router ospf 1',
+    'do ping 192.168.220.50',
+    'do show ip int b',
+    'do show ip route'
+]

@@ -1,0 +1,2 @@
+router isis 1
+do show run

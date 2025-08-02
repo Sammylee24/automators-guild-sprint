@@ -31,6 +31,22 @@ def execute_command(ssh, command):
         print(e)
         return None
 
+# Send configuration set to device
+def config_device(ssh, config):
+    try:
+        result = ssh.send_config_set(config)
+        return result
+    except Exception as e:
+        print(e)
+
+# Send config from file
+def file_config(ssh, conf):
+    try:
+        result = ssh.send_config_from_file(conf)
+        return result
+    except Exception as e:
+        print(e)
+
 # Disconnect from device
 def device_disconnect(ssh):
     try:
