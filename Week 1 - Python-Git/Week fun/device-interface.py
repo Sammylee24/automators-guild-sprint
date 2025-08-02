@@ -12,9 +12,10 @@ interfaces = []
 
 for i in list:
     try:
-        device = i.split('_')[0]
+        action = i.split('_')
+        device = action[0]
         devices.append(device)
-        interface = i.split('_')[-1]
+        interface = action[-1]
         interfaces.append(interface)
     except Exception as e:
         print("An error occured ---", e)
