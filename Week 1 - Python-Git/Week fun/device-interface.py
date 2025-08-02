@@ -11,10 +11,13 @@ devices = []
 interfaces = []
 
 for i in list:
-    device = i.split('_')[0]
-    devices.append(device)
-    interface = i.split('_')[-1]
-    interfaces.append(interface)
+    try:
+        device = i.split('_')[0]
+        devices.append(device)
+        interface = i.split('_')[-1]
+        interfaces.append(interface)
+    except Exception as e:
+        print("An error occured ---", e)
     
 final_dict = {'devices':devices, 'interfaces':interfaces}
 print(final_dict)
