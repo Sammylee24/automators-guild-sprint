@@ -17,7 +17,12 @@ def extract_ips_from_log(file_path):
 
 def extract_macs_from_log(file_path):
     # Regex for MAC address mapping
-    mac_pattern = r'\b(?:[0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}\b'
+    mac_pattern = (
+    r'\b(?:[0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}\b'        # aa:bb:cc:dd:ee:ff or aa-bb-cc-dd-ee-ff
+    r'|'
+    r'\b(?:[0-9A-Fa-f]{4}\.){2}[0-9A-Fa-f]{4}\b'           # aabb.ccdd.eeff
+)
+
 
     mac_addresses = set()   # To avoid duplicates
 
