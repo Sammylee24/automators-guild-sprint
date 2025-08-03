@@ -1,130 +1,135 @@
-# This code logs into a switch and retrieves
-# all MAC addresses learnt from all interfaces
-
-import getpass as gt
-import netmiko as nt
+import getpass
+import netmiko
 import re
+import sys
 
 def get_device_info():
     try:
-        ip_pattern = r'\b(?:(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}' \
-                     r'(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\b'
+        ip_pattern = re.compile(
+            r'\b(?:(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.){3}'
+            r'(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\b'
+        )
 
         while True:
-            device_type = input("Is this a Cisco device? (Enter Y or N): ").strip().upper()
-            if device_type == 'Y':
+            device_choice = input("Is this a Cisco device? (Enter Y or N): ").strip().upper()
+            if device_choice == 'Y':
                 device_type = 'cisco_ios'
                 break
-            elif device_type == 'N':
+            elif device_choice == 'N':
                 print("This script currently supports only Cisco devices. Exiting.")
-                exit(0)
+                sys.exit(0)
             else:
-                print("Wrong selection. Please enter Y or N.")
+                print("Invalid input. Please enter Y or N.")
 
         while True:
-            device = input("Enter device IP address: ").strip()
-            if re.fullmatch(ip_pattern, device):
+            ip = input("Enter device IP address: ").strip()
+            if ip_pattern.fullmatch(ip):
                 break
             else:
-                print("Invalid IP address format. Please enter a valid IPv4 address.")
+                print("Invalid IPv4 address. Please try again.")
 
-        username = input("Enter Device login username: ").strip()
-        password = gt.getpass("Enter device password: ").strip()
+        username = input("Enter device login username: ").strip()
+        password = getpass.getpass("Enter device password: ").strip()
 
-        return device_type, device, username, password
+        return {
+            'device_type': device_type,
+            'host': ip,
+            'username': username,
+            'password': password,
+            'port': 22
+        }
 
     except Exception as e:
         print("[!] Error in device input:", e)
+        sys.exit(1)
 
 def connect_device(device):
     try:
-        print("[+] Trying to connect to", device['host'])
-        ssh = nt.ConnectHandler(**device)
+        print(f"[+] Connecting to {device['host']} ...")
+        ssh = netmiko.ConnectHandler(**device)
         print("[+] Connection successful!")
         return ssh
     except Exception as e:
-        print(e)
+        print(f"[!] Connection failed: {e}")
+        sys.exit(1)
 
-def enable_device(ssh, device):
+def enable_device(ssh, host):
     try:
         ssh.enable()
-        print("Entered enable mode for", device['host'], "successfully!")
+        print(f"[+] Enable mode entered on {host}")
     except Exception as e:
-        print(e)
+        print(f"[!] Enable mode failed: {e}")
+        ssh.disconnect()
+        sys.exit(1)
 
-def learn_mac(ssh, command, device):
+def get_mac_table(ssh, command, host):
     try:
-        result = ssh.send_command(command)
-        print("Fetched MAC addresses from", device['host'], "successfully!")
-        return result
+        output = ssh.send_command(command)
+        print(f"[+] MAC address table fetched from {host}")
+        return output
     except Exception as e:
-        print(e)
+        print(f"[!] Failed to retrieve MAC table: {e}")
+        ssh.disconnect()
+        sys.exit(1)
 
-def extract_macs_from_device(result):
-    extract = []
-    count = 0
+def extract_unique_macs(text):
     try:
-        # Regex for MAC address mapping
-        mac_pattern = (
-        r'\b(?:[0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}\b'        # aa:bb:cc:dd:ee:ff or aa-bb-cc-dd-ee-ff
-        r'|'
-        r'\b(?:[0-9A-Fa-f]{4}\.){2}[0-9A-Fa-f]{4}\b'           # aabb.ccdd.eeff
-    )
+        mac_pattern = re.compile(
+            r'(?:[0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}'
+            r'|(?:[0-9A-Fa-f]{4}\.){2}[0-9A-Fa-f]{4}'
+        )
+        mac_set = set()
+        total = 0
 
-        mac_addresses = set()   # To avoid duplicates
+        for line in text.splitlines():
+            matches = mac_pattern.findall(line)
+            total += len(matches)
+            mac_set.update(matches)
 
-        for line in result.splitlines():
-            matches = re.findall(mac_pattern, line)
-            for mac in matches:
-                mac_addresses.add(mac)
-                count += 1
-        extract = sorted(mac_addresses)
-        print(count, "uniques MAC addresses found!")
-        return extract
+        print(f"[+] Retrieved {total} MAC entries, {len(mac_set)} unique.\n")
+        return sorted(mac_set)
     except Exception as e:
-        print(e)
+        print(f"[!] MAC extraction error: {e}")
+        return []
 
-def mac_vlan_int(result):
+def print_mac_vlan_interface_table(mac_output):
     try:
+        mac_format = re.compile(
+            r'^(?:[0-9A-Fa-f]{4}\.){2}[0-9A-Fa-f]{4}$|^(?:[0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}$'
+        )
+
         print("\nMAC Address Mapping (VLAN | MAC | Interface):")
         print(f"{'VLAN':<6} {'MAC Address':<20} {'Interface':<15}")
         print("-" * 45)
 
-        for line in result.splitlines():
+        for line in mac_output.splitlines():
             parts = line.split()
             if len(parts) >= 4:
-                vlan = parts[0]
-                mac = parts[1]
-                interface = parts[-1]
-
-                # Basic MAC validation (skip non-MAC entries)
-                if re.match(r'^(?:[0-9A-Fa-f]{4}\.){2}[0-9A-Fa-f]{4}$|^(?:[0-9A-Fa-f]{2}[:-]){5}[0-9A-Fa-f]{2}$', mac):
+                vlan, mac, _, interface = parts[:4]
+                if mac_format.match(mac):
                     print(f"{vlan:<6} {mac:<20} {interface:<15}")
-
     except Exception as e:
         print("[!] Error parsing MAC table:", e)
 
-def disconnect_device(ssh, device):
+def disconnect_device(ssh, host):
     try:
         ssh.disconnect()
-        print("Disconnected from", device['host'])
+        print(f"[+] Disconnected from {host}")
     except Exception as e:
-        print(e)
+        print(f"[!] Error during disconnect: {e}")
 
-device_type, device_ip, username, password = get_device_info()
+def main():
+    device = get_device_info()
+    ssh = connect_device(device)
+    enable_device(ssh, device['host'])
+    mac_output = get_mac_table(ssh, 'show mac address-table', device['host'])
+    mac_list = extract_unique_macs(mac_output)
+    if mac_list:
+        print("[+] Unique MACs:")
+        for mac in mac_list:
+            print(mac)
+    print_mac_vlan_interface_table(mac_output)
+    disconnect_device(ssh, device['host'])
 
-device = {
-    'device_type': device_type,
-    'host': device_ip,
-    'username': username,
-    'password': password,
-    'port': 22
-}
-
-connection = connect_device(device)
-enable_device(connection, device)
-macs = learn_mac(connection, 'show mac address-table', device)
-extracted_macs = extract_macs_from_device(macs)
-print(extracted_macs)
-mac_vlan_int(macs)
-disconnect_device(connection, device)
+if __name__ == '__main__':
+    main()
