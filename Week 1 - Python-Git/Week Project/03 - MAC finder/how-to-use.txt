@@ -1,0 +1,9 @@
+
+1. Modify the hosts.py file to match the device parameters on your live network.
+    You can delete, edit, or add more ddevices as you wish.
+
+2. Run the code to display all MAC addresses learnt using the below command:
+    python main.py
+
+3. If you want to view information about a specific MAC address, run the command below:
+    python main.py --search <INPUT-MAC-ADDRESS-HERE>
