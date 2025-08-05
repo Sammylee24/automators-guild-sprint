@@ -6,6 +6,7 @@ devices = [
         'host': '192.168.2.137',
         'username': 'Samuel',
         'password': 'Samuel@123',
+        'secret': 'Samuel@123',
         'port': 22
     },
     {
@@ -13,6 +14,7 @@ devices = [
         'host': '192.168.2.138',
         'username': 'Samuel',
         'password': 'Samuel@123',
+        'secret': 'Samuel@123',
         'port': 22
     },
     {
@@ -20,6 +22,7 @@ devices = [
         'host': '192.168.2.139',
         'username': 'Samuel',
         'password': 'Samuel@123',
+        'secret': 'Samuel@123',
         'port': 22
     },
     {
@@ -27,6 +30,7 @@ devices = [
         'host': '192.168.2.140',
         'username': 'Samuel',
         'password': 'Samuel@123',
+        'secret': 'Samuel@123',
         'port': 22
     },
 ]
