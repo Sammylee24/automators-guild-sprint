@@ -1,3 +1,5 @@
+Currently working for only Cisco devices.
+Will modify to work for other vendors in the coming days.
 
 1. Modify the hosts.py file to match the device parameters on your live network.
     You can delete, edit, or add more ddevices as you wish.
