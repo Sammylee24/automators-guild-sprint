@@ -1,6 +1,8 @@
 import network_util as nu
 from hosts import devices
 from tqdm import tqdm
+from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime
 
 def main():
     mac_to_find = nu.search_mac()
@@ -27,4 +29,7 @@ def main():
     nu.display_results(all_mac_entries, search_mac=mac_to_find)
 
 if __name__ == '__main__':
+    time_now = datetime.now()
     main()
+    print(datetime.now() - time_now)
+    
