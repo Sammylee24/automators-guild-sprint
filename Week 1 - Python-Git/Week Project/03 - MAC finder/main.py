@@ -31,5 +31,5 @@ def main():
 if __name__ == '__main__':
     time_now = datetime.now()
     main()
-    print(datetime.now() - time_now)
+    print(f"\nTotal entire run time of code is {datetime.now() - time_now}")
     

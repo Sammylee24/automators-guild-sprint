@@ -2,7 +2,7 @@ import socket
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from tqdm import tqdm
 
-host = '192.168.2.140'
+host = '10.168.2.67'
 
 def local_socket(port):
     try:

@@ -1,0 +1,80 @@
+2025-08-07 15:19:14,493 - INFO - Connected (version 1.99, client Cisco-1.25)
+2025-08-07 15:19:15,031 - INFO - Authentication (password) successful!
+2025-08-07 15:19:15,441 - INFO - [192.168.2.137] Show IP Int Brief:
+Interface              IP-Address      OK? Method Status                Protocol
+Ethernet0/0            unassigned      YES unset  up                    up      
+Ethernet0/1            unassigned      YES unset  up                    up      
+Ethernet0/2            unassigned      YES unset  down                  down    
+Ethernet0/3            unassigned      YES unset  down                  down    
+Vlan10                 192.168.10.254  YES NVRAM  up                    up      
+Vlan20                 192.168.20.254  YES NVRAM  up                    up      
+Vlan1000               192.168.2.137   YES DHCP   up                    up      
+
+2025-08-07 15:19:15,456 - INFO - Connected (version 1.99, client Cisco-1.25)
+2025-08-07 15:19:16,169 - INFO - Authentication (password) successful!
+2025-08-07 15:19:16,587 - INFO - [192.168.2.138] Show IP Int Brief:
+Interface              IP-Address      OK? Method Status                Protocol
+Ethernet0/0            unassigned      YES unset  up                    up      
+Ethernet0/1            unassigned      YES unset  up                    up      
+Ethernet0/2            unassigned      YES unset  up                    up      
+Ethernet0/3            unassigned      YES unset  up                    up      
+Ethernet1/0            unassigned      YES unset  up                    up      
+Ethernet1/1            unassigned      YES unset  up                    up      
+Ethernet1/2            unassigned      YES unset  up                    up      
+Ethernet1/3            unassigned      YES unset  up                    up      
+Ethernet2/0            unassigned      YES unset  down                  down    
+Ethernet2/1            unassigned      YES unset  down                  down    
+Ethernet2/2            unassigned      YES unset  down                  down    
+Ethernet2/3            unassigned      YES unset  down                  down    
+Ethernet3/0            unassigned      YES unset  down                  down    
+Ethernet3/1            unassigned      YES unset  down                  down    
+Ethernet3/2            unassigned      YES unset  down                  down    
+Ethernet3/3            unassigned      YES unset  down                  down    
+Ethernet4/0            unassigned      YES unset  down                  down    
+Ethernet4/1            unassigned      YES unset  down                  down    
+Ethernet4/2            unassigned      YES unset  down                  down    
+Ethernet4/3            unassigned      YES unset  down                  down    
+Ethernet5/0            unassigned      YES unset  down                  down    
+Ethernet5/1            unassigned      YES unset  down                  down    
+Ethernet5/2            unassigned      YES unset  down                  down    
+Ethernet5/3            unassigned      YES unset  down                  down    
+Ethernet6/0            unassigned      YES unset  down                  down    
+Ethernet6/1            unassigned      YES unset  down                  down    
+Ethernet6/2            unassigned      YES unset  down                  down    
+Ethernet6/3            unassigned      YES unset  down                  down    
+Ethernet7/0            unassigned      YES unset  down                  down    
+Ethernet7/1            unassigned      YES unset  down                  down    
+Ethernet7/2            unassigned      YES unset  down                  down    
+Ethernet7/3            unassigned      YES unset  down                  down    
+Ethernet8/0            unassigned      YES unset  down                  down    
+Ethernet8/1            unassigned      YES unset  down                  down    
+Ethernet8/2            unassigned      YES unset  down                  down    
+Ethernet8/3            unassigned      YES unset  down                  down    
+Ethernet9/0            unassigned      YES unset  down                  down    
+Ethernet9/1            unassigned      YES unset  down                  down    
+Ethernet9/2            unassigned      YES unset  down                  down    
+Ethernet9/3            unassigned      YES unset  down                  down    
+Vlan10                 192.168.10.1    YES NVRAM  up                    up      
+Vlan20                 192.168.20.1    YES NVRAM  up                    up      
+Vlan1000               192.168.2.138   YES DHCP   up                    up      
+
+2025-08-07 15:19:16,623 - INFO - Connected (version 1.99, client Cisco-1.25)
+2025-08-07 15:19:17,178 - INFO - Authentication (password) successful!
+2025-08-07 15:19:17,604 - INFO - [192.168.2.139] Show IP Int Brief:
+Interface              IP-Address      OK? Method Status                Protocol
+Ethernet0/0            unassigned      YES unset  up                    up      
+Ethernet0/1            unassigned      YES unset  up                    up      
+Ethernet0/2            unassigned      YES unset  down                  down    
+Ethernet0/3            unassigned      YES unset  down                  down    
+Vlan1000               192.168.2.139   YES DHCP   up                    up      
+
+2025-08-07 15:19:17,627 - INFO - Connected (version 1.99, client Cisco-1.25)
+2025-08-07 15:19:18,370 - INFO - Authentication (password) successful!
+2025-08-07 15:19:18,777 - INFO - [192.168.2.140] Show IP Int Brief:
+Interface              IP-Address      OK? Method Status                Protocol
+Ethernet0/0            unassigned      YES unset  up                    up      
+Ethernet0/1            unassigned      YES unset  up                    up      
+Ethernet0/2            unassigned      YES unset  down                  down    
+Ethernet0/3            unassigned      YES unset  down                  down    
+Vlan1000               192.168.2.140   YES DHCP   up                    up      
+
