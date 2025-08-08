@@ -39,37 +39,37 @@ devices = [
     },
     {
         'device_type': 'huawei_vrp',
-        'host': '10.168.14.1',
-        'username': 'sshadmin',
-        'password': 'DCimmi@2024',
+        'host': '192.168.2.141',
+        'username': 'Samuel',
+        'password': 'Samuel@123',
         'port': 22
     },
     {
         'device_type': 'huawei_vrp',
-        'host': '10.168.48.72',
-        'username': 'sshadmin',
-        'password': 'Cimmi@2024',
+        'host': '192.168.2.142',
+        'username': 'Samuel',
+        'password': 'Samuel@123',
         'port': 22
     },
     {
         'device_type': 'huawei_vrp',
-        'host': '10.168.48.73',
-        'username': 'sshadmin',
-        'password': 'Cimmi@2024',
+        'host': '192.168.2.143',
+        'username': 'Samuel',
+        'password': 'Samuel@123',
         'port': 22
     },
     {
         'device_type': 'huawei_vrp',
-        'host': '10.168.48.67',
-        'username': 'sshadmin',
-        'password': 'Immigration@1234',
+        'host': '192.168.2.144',
+        'username': 'Samuel',
+        'password': 'Samuel@123',
         'port': 22
     },
     {
-        'device_type': 'huawei_vrp',
+        'device_type': '192.168.2.145',
         'host': '10.168.48.68',
-        'username': 'sshadmin',
-        'password': 'Immigration@1234',
+        'username': 'Samuel',
+        'password': 'Samuel@123',
         'port': 22
     },
 ]
