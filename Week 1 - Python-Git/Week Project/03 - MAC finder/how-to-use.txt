@@ -1,4 +1,6 @@
-Currently working for only Cisco devices.
+Currently working for only Cisco and Huawei devices.
+Juniper and Arista support is coming soon
+
 Will modify to work for other vendors in the coming days.
 
 1. Modify the hosts.py file to match the device parameters on your live network.

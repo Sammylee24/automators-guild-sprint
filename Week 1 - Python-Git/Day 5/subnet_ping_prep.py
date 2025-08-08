@@ -3,7 +3,7 @@ import ipaddress
 import platform
 import subprocess
 import concurrent.futures
-from tqdm import tqdm
+from tqdm import tqdm  # 1. Import the tqdm library
 
 def ping_host(ip_address):
     """
