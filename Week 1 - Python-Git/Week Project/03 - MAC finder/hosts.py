@@ -66,8 +66,8 @@ devices = [
         'port': 22
     },
     {
-        'device_type': '192.168.2.145',
-        'host': '10.168.48.68',
+        'device_type': 'huawei_vrp',
+        'host': '192.168.2.145',
         'username': 'Samuel',
         'password': 'Samuel@123',
         'port': 22
