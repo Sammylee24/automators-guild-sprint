@@ -47,11 +47,11 @@ class NetworkInventory:
             self.devices.append(device)
 
     def display_info(self):
-        print("Hostname"," "*10,"IP Address"," "*10,"Vendor"," "*10,"OS Version"," "*10)
+        print("\nHostname"," "*10,"IP Address"," "*10,"Vendor"," "*10,"OS Version"," "*10)
         print("-"*80)
         for device in self.devices:
             print(f"{device.hostname:<20}{device.ip_address:<20}{device.vendor:<20}{device.os_version:<20}")
-        print("-"*80)
+        print("-"*80,"\n")
 
     def search_device(self, query):
         for device in self.devices:
@@ -63,23 +63,29 @@ def main():
     r1 = Router("R1", "192.168.1.1", "Huawei", "VRP")
     r1.add_route("20.0.0.0/24", "192.168.1.254")
     r1.add_route("0.0.0.0/0", "10.10.2.254")
+    print(r1.ping())
 
     r2 = Router("R2", "192.168.1.2", "Cisco", "IOS")
     r2.add_route("20.0.0.0/24", "192.168.1.254")
     r2.add_route("0.0.0.0/0", "10.10.2.254")
-    
+    print(r2.ping())
+
     sw1 = Switch("SW1", "192.168.2.1", "Huawei", "VRP")
     sw1.add_vlan("200 to 220")
     sw1.add_vlan("4000")
+    print(sw1.ping())
 
     sw2 = Switch("SW2", "192.168.2.2", "Cisco", "IOS")
     sw2.add_vlan("200 to 220")
+    print(sw2.ping())
 
     fw1 = Firewall("FW1", "192.168.3.1", "Huawei", "VRP")
     fw1.add_rule("Allow 192.168.1.0/24 reach 0.0.0.0/0")
+    print(fw1.ping())
 
     fw2 = Firewall("FW2", "192.168.3.2", "Huawei", "VRP")
     fw2.add_rule("Allow 192.168.1.0/24 reach 0.0.0.0/0")
+    print(fw2.ping())
 
     inventory = NetworkInventory()
     inventory.add_device(r1)
