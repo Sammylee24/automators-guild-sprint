@@ -35,8 +35,8 @@ class Firewall(NetworkDevice):
         self.rules = []
 
     def add_rule(self, rule):
-        #if rule not in self.add_rule:
-        self.rules.append(rule)      
+        if rule not in self.rules:
+            self.rules.append(rule)      
 
 class NetworkInventory:
     def __init__(self):
