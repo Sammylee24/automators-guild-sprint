@@ -40,12 +40,6 @@ class NetworkTopology:
             print(f"{link['device_a']:<20}{link['interface_a']:<20}{link['device_b']:<20}{link['interface_b']:<20}")
         print("-"*80,"\n")
 
-    def search():
-        pass
-
-    def export_topo():
-        pass
-
 def main():
     r1 = Router("R1", "192.168.1.1")
     r2 = Router("R2", "192.168.1.2")#
