@@ -1,0 +1,3 @@
+show ip int b
+show ip route
+show mac address-table
