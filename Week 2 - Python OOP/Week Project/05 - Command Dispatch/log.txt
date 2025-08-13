@@ -38,3 +38,43 @@
 2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would run command on 192.168.2.140: show mac address-table
 2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would run command on 192.168.2.140: show run
 2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would disconnect from 192.168.2.140
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would connect to 192.168.2.137
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would enable 192.168.2.137
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would send configuration to 192.168.2.137 for ip route 7.7.7.7 255.255.255.255 Null0
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would send configuration to 192.168.2.137 for no router ospf 1
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would send configuration to 192.168.2.137 for no router bgp 100
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.137: show ip int b
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.137: show ip route
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.137: show mac address-table
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.137: show run
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would disconnect from 192.168.2.137
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would connect to 192.168.2.138
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would enable 192.168.2.138
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would send configuration to 192.168.2.138 for ip route 7.7.7.7 255.255.255.255 Null0
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would send configuration to 192.168.2.138 for no router ospf 1
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would send configuration to 192.168.2.138 for no router bgp 100
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.138: show ip int b
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.138: show ip route
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.138: show mac address-table
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.138: show run
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would disconnect from 192.168.2.138
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would connect to 192.168.2.139
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would enable 192.168.2.139
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would send configuration to 192.168.2.139 for ip route 7.7.7.7 255.255.255.255 Null0
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would send configuration to 192.168.2.139 for no router ospf 1
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would send configuration to 192.168.2.139 for no router bgp 100
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.139: show ip int b
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.139: show ip route
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.139: show mac address-table
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.139: show run
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would disconnect from 192.168.2.139
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would connect to 192.168.2.140
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would enable 192.168.2.140
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would send configuration to 192.168.2.140 for ip route 7.7.7.7 255.255.255.255 Null0
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would send configuration to 192.168.2.140 for no router ospf 1
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would send configuration to 192.168.2.140 for no router bgp 100
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.140: show ip int b
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.140: show ip route
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.140: show mac address-table
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.140: show run
+2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would disconnect from 192.168.2.140

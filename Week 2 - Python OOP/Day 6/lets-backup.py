@@ -1,7 +1,10 @@
 from netmiko import ConnectHandler
-import sys
-from device_list import devices
 import logging
+import sys
+import os
+from datetime import datetime
+from device_list import devices
+import argparse
 
 class NetworkDevice():
     def __init__(self, ip, user, password, device_type, port):
@@ -26,30 +29,35 @@ class NetworkDevice():
             logging.error(f"Error connecting to {self.ip}")
             sys.exit(1)
 
-    def enable(self):
+    def enable(self, dev_type):
         try:
-            if self.device_type == 'cisco_ios':
+            if self.device_type == dev_type:
                 self.ssh.enable()
                 logging.info(f"Enabled {self.ip} successfully.")
         except Exception as e:
             logging.error(f"Error enabling {self.ip}")
             sys.exit(1)
 
-    def execute_command(self, command_file):
+    def backup_config(self, backup_dir="backups"):
         try:
-            self.commands = self.ssh.send_config_from_file(command_file)
-            logging.info(f"Executed commands on {self.ip} successfully")
+            # Step 1 – Get running config
+            output = self.ssh.send_command("show running-config")
+            
+            # Step 2 – Ensure backup directory exists
+            os.makedirs(backup_dir, exist_ok=True)
+            
+            # Step 3 – Create timestamped file name
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = os.path.join(backup_dir, f"{self.ip}_{timestamp}.txt")
+            
+            # Step 4 – Write output to file
+            with open(filename, "w") as f:
+                f.write(output)
+            
+            logging.info(f"Backed up config for {self.ip} to {filename}")
+        
         except Exception as e:
-            logging.error(f"Failure delivering commands to {self.ip}")
-            sys.exit(1)
-
-    def execute_config(self, config_file):
-        try:
-            self.configs = self.ssh.send_config_from_file(config_file)
-            logging.info(f"Executed configurations on {self.ip} successfully")
-        except Exception as e:
-            logging.error(f"Failure delivering configurations to {self.ip}")
-            sys.exit(1)
+            logging.error(f"Error backing up config for {self.ip}: {e}")
 
     def disconnect(self):
         try:
@@ -60,12 +68,23 @@ class NetworkDevice():
             sys.exit(1)
 
 def main():
-    command_file = 'commands.txt'
-    config_file = 'configs.txt'
-    logfile = 'log.txt'
+    parser = argparse.ArgumentParser(description="Network Automation Script")
+    
+    parser.add_argument(
+        "--log",
+        default="log.txt",
+        help="Log file path"
+    )
+    parser.add_argument(
+        "--vendor",
+        default='cisco-ios',
+        help="What device vendor?"
+    )
+
+    args = parser.parse_args()
 
     logging.basicConfig(
-            filename=logfile,
+            filename=args.log,
             level=logging.INFO,
             format='%(asctime)s - %(levelname)s - %(message)s',
         )
@@ -80,9 +99,8 @@ def main():
         )
 
         device.connect()
-        device.enable()
-        device.execute_command(command_file=command_file)
-        device.execute_config(config_file=config_file)
+        device.enable(dev_type=args.vendor)
+        device.backup_config(backup_dir="backups")
         device.disconnect()
 
 if __name__ == "__main__":

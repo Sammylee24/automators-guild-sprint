@@ -2,7 +2,7 @@ import socket
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from tqdm import tqdm
 
-host = '10.168.2.67'
+host = '192.168.2.1'
 
 def local_socket(port):
     try:
@@ -18,9 +18,9 @@ def local_socket(port):
         print(e)
 
 def main():
-    ports = range(1,101)
+    ports = range(1,100)
 
-    with ThreadPoolExecutor(max_workers=10) as executor:
+    with ThreadPoolExecutor(max_workers=50) as executor:
         try:
             futures = {executor.submit(local_socket, port): port for port in ports}
             
