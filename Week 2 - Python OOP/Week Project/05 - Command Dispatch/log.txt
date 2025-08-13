@@ -1,80 +1,852 @@
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would connect to 192.168.2.137
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would enable 192.168.2.137
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would send configuration to 192.168.2.137 for ip route 7.7.7.7 255.255.255.255 Null0
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would send configuration to 192.168.2.137 for no router ospf 1
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would send configuration to 192.168.2.137 for no router bgp 100
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would run command on 192.168.2.137: show ip int b
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would run command on 192.168.2.137: show ip route
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would run command on 192.168.2.137: show mac address-table
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would run command on 192.168.2.137: show run
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would disconnect from 192.168.2.137
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would connect to 192.168.2.138
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would enable 192.168.2.138
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would send configuration to 192.168.2.138 for ip route 7.7.7.7 255.255.255.255 Null0
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would send configuration to 192.168.2.138 for no router ospf 1
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would send configuration to 192.168.2.138 for no router bgp 100
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would run command on 192.168.2.138: show ip int b
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would run command on 192.168.2.138: show ip route
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would run command on 192.168.2.138: show mac address-table
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would run command on 192.168.2.138: show run
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would disconnect from 192.168.2.138
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would connect to 192.168.2.139
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would enable 192.168.2.139
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would send configuration to 192.168.2.139 for ip route 7.7.7.7 255.255.255.255 Null0
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would send configuration to 192.168.2.139 for no router ospf 1
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would send configuration to 192.168.2.139 for no router bgp 100
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would run command on 192.168.2.139: show ip int b
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would run command on 192.168.2.139: show ip route
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would run command on 192.168.2.139: show mac address-table
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would run command on 192.168.2.139: show run
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would disconnect from 192.168.2.139
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would connect to 192.168.2.140
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would enable 192.168.2.140
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would send configuration to 192.168.2.140 for ip route 7.7.7.7 255.255.255.255 Null0
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would send configuration to 192.168.2.140 for no router ospf 1
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would send configuration to 192.168.2.140 for no router bgp 100
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would run command on 192.168.2.140: show ip int b
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would run command on 192.168.2.140: show ip route
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would run command on 192.168.2.140: show mac address-table
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would run command on 192.168.2.140: show run
-2025-08-12 10:26:33,726 - INFO - [DRY RUN] Would disconnect from 192.168.2.140
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would connect to 192.168.2.137
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would enable 192.168.2.137
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would send configuration to 192.168.2.137 for ip route 7.7.7.7 255.255.255.255 Null0
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would send configuration to 192.168.2.137 for no router ospf 1
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would send configuration to 192.168.2.137 for no router bgp 100
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.137: show ip int b
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.137: show ip route
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.137: show mac address-table
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.137: show run
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would disconnect from 192.168.2.137
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would connect to 192.168.2.138
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would enable 192.168.2.138
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would send configuration to 192.168.2.138 for ip route 7.7.7.7 255.255.255.255 Null0
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would send configuration to 192.168.2.138 for no router ospf 1
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would send configuration to 192.168.2.138 for no router bgp 100
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.138: show ip int b
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.138: show ip route
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.138: show mac address-table
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.138: show run
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would disconnect from 192.168.2.138
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would connect to 192.168.2.139
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would enable 192.168.2.139
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would send configuration to 192.168.2.139 for ip route 7.7.7.7 255.255.255.255 Null0
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would send configuration to 192.168.2.139 for no router ospf 1
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would send configuration to 192.168.2.139 for no router bgp 100
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.139: show ip int b
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.139: show ip route
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.139: show mac address-table
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.139: show run
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would disconnect from 192.168.2.139
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would connect to 192.168.2.140
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would enable 192.168.2.140
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would send configuration to 192.168.2.140 for ip route 7.7.7.7 255.255.255.255 Null0
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would send configuration to 192.168.2.140 for no router ospf 1
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would send configuration to 192.168.2.140 for no router bgp 100
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.140: show ip int b
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.140: show ip route
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.140: show mac address-table
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would run command on 192.168.2.140: show run
-2025-08-12 20:27:02,607 - INFO - [DRY RUN] Would disconnect from 192.168.2.140
+2025-08-13 19:08:25,371 - INFO - Connected (version 1.99, client Cisco-1.25)
+2025-08-13 19:08:25,386 - INFO - Connected (version 1.99, client Cisco-1.25)
+2025-08-13 19:08:25,419 - INFO - Connected (version 1.99, client Cisco-1.25)
+2025-08-13 19:08:25,490 - INFO - Connected (version 1.99, client Cisco-1.25)
+2025-08-13 19:08:26,088 - INFO - Authentication (password) successful!
+2025-08-13 19:08:26,093 - INFO - Authentication (password) successful!
+2025-08-13 19:08:26,168 - INFO - Authentication (password) successful!
+2025-08-13 19:08:26,168 - INFO - Authentication (password) successful!
+2025-08-13 19:08:26,432 - INFO - Connected to 192.168.2.137
+2025-08-13 19:08:26,433 - INFO - Connected to 192.168.2.138
+2025-08-13 19:08:26,440 - INFO - Connected to 192.168.2.140
+2025-08-13 19:08:26,453 - INFO - Enabled 192.168.2.137 successfully.
+2025-08-13 19:08:26,454 - INFO - Enabled 192.168.2.138 successfully.
+2025-08-13 19:08:26,461 - INFO - Enabled 192.168.2.140 successfully.
+2025-08-13 19:08:26,522 - INFO - Connected to 192.168.2.139
+2025-08-13 19:08:26,543 - INFO - Enabled 192.168.2.139 successfully.
+2025-08-13 19:08:26,684 - INFO - Output from 192.168.2.137 for 'ip route 7.7.7.7 255.255.255.255 Null0':
+configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+SW1(config)#ip route 7.7.7.7 255.255.255.255 Null0
+SW1(config)#end
+SW1#
+
+2025-08-13 19:08:26,797 - INFO - Output from 192.168.2.138 for 'ip route 7.7.7.7 255.255.255.255 Null0':
+configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+SW2(config)#ip route 7.7.7.7 255.255.255.255 Null0
+SW2(config)#end
+SW2#
+
+2025-08-13 19:08:26,851 - INFO - Output from 192.168.2.137 for 'no router ospf 1':
+configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+SW1(config)#no router ospf 1
+SW1(config)#end
+SW1#
+
+2025-08-13 19:08:26,887 - INFO - Output from 192.168.2.140 for 'ip route 7.7.7.7 255.255.255.255 Null0':
+configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+SW4(config)#ip route 7.7.7.7 255.255.255.255 Null0
+SW4(config)#end
+SW4#
+
+2025-08-13 19:08:26,968 - INFO - Output from 192.168.2.139 for 'ip route 7.7.7.7 255.255.255.255 Null0':
+configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+SW3(config)#ip route 7.7.7.7 255.255.255.255 Null0
+SW3(config)#end
+SW3#
+
+2025-08-13 19:08:27,007 - INFO - Output from 192.168.2.137 for 'no router bgp 100':
+configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+SW1(config)#no router bgp 100
+SW1(config)#end
+SW1#
+
+2025-08-13 19:08:27,046 - INFO - Output from 192.168.2.138 for 'no router ospf 1':
+configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+SW2(config)#no router ospf 1
+SW2(config)#end
+SW2#
+
+2025-08-13 19:08:27,120 - INFO - Output from 192.168.2.137 for 'show ip int b':
+Interface              IP-Address      OK? Method Status                Protocol
+Ethernet0/0            unassigned      YES unset  up                    up      
+Ethernet0/1            unassigned      YES unset  up                    up      
+Ethernet0/2            unassigned      YES unset  down                  down    
+Ethernet0/3            unassigned      YES unset  down                  down    
+Vlan10                 192.168.10.254  YES NVRAM  up                    up      
+Vlan20                 192.168.20.254  YES NVRAM  up                    up      
+Vlan1000               192.168.2.137   YES DHCP   up                    up      
+
+2025-08-13 19:08:27,199 - INFO - Output from 192.168.2.140 for 'no router ospf 1':
+configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+SW4(config)#no router ospf 1
+SW4(config)#end
+SW4#
+
+2025-08-13 19:08:27,233 - INFO - Output from 192.168.2.137 for 'show ip route':
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area 
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       a - application route
+       + - replicated route, % - next hop override, p - overrides from PfR
+
+Gateway of last resort is 192.168.2.2 to network 0.0.0.0
+
+S*    0.0.0.0/0 [254/0] via 192.168.2.2
+      7.0.0.0/32 is subnetted, 1 subnets
+S        7.7.7.7 is directly connected, Null0
+      192.168.2.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.2.0/24 is directly connected, Vlan1000
+L        192.168.2.137/32 is directly connected, Vlan1000
+      192.168.10.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.10.0/24 is directly connected, Vlan10
+L        192.168.10.254/32 is directly connected, Vlan10
+      192.168.20.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.20.0/24 is directly connected, Vlan20
+L        192.168.20.254/32 is directly connected, Vlan20
+
+2025-08-13 19:08:27,274 - INFO - Output from 192.168.2.138 for 'no router bgp 100':
+configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+SW2(config)#no router bgp 100
+SW2(config)#end
+SW2#
+
+2025-08-13 19:08:27,308 - INFO - Output from 192.168.2.139 for 'no router ospf 1':
+configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+SW3(config)#no router ospf 1
+SW3(config)#end
+SW3#
+
+2025-08-13 19:08:27,368 - INFO - Output from 192.168.2.137 for 'show mac address-table':
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+1000    0050.56c0.0008    DYNAMIC     Et0/1
+1000    aabb.cc80.0200    DYNAMIC     Et0/0
+1000    aabb.cc80.0300    DYNAMIC     Et0/0
+1000    aabb.cc80.0400    DYNAMIC     Et0/0
+Total Mac Addresses for this criterion: 4
+
+2025-08-13 19:08:27,387 - INFO - Output from 192.168.2.138 for 'show ip int b':
+Interface              IP-Address      OK? Method Status                Protocol
+Ethernet0/0            unassigned      YES unset  up                    up      
+Ethernet0/1            unassigned      YES unset  up                    up      
+Ethernet0/2            unassigned      YES unset  up                    up      
+Ethernet0/3            unassigned      YES unset  up                    up      
+Ethernet1/0            unassigned      YES unset  up                    up      
+Ethernet1/1            unassigned      YES unset  up                    up      
+Ethernet1/2            unassigned      YES unset  up                    up      
+Ethernet1/3            unassigned      YES unset  up                    up      
+Ethernet2/0            unassigned      YES unset  down                  down    
+Ethernet2/1            unassigned      YES unset  down                  down    
+Ethernet2/2            unassigned      YES unset  down                  down    
+Ethernet2/3            unassigned      YES unset  down                  down    
+Ethernet3/0            unassigned      YES unset  down                  down    
+Ethernet3/1            unassigned      YES unset  down                  down    
+Ethernet3/2            unassigned      YES unset  down                  down    
+Ethernet3/3            unassigned      YES unset  down                  down    
+Ethernet4/0            unassigned      YES unset  down                  down    
+Ethernet4/1            unassigned      YES unset  down                  down    
+Ethernet4/2            unassigned      YES unset  down                  down    
+Ethernet4/3            unassigned      YES unset  down                  down    
+Ethernet5/0            unassigned      YES unset  down                  down    
+Ethernet5/1            unassigned      YES unset  down                  down    
+Ethernet5/2            unassigned      YES unset  down                  down    
+Ethernet5/3            unassigned      YES unset  down                  down    
+Ethernet6/0            unassigned      YES unset  down                  down    
+Ethernet6/1            unassigned      YES unset  down                  down    
+Ethernet6/2            unassigned      YES unset  down                  down    
+Ethernet6/3            unassigned      YES unset  down                  down    
+Ethernet7/0            unassigned      YES unset  down                  down    
+Ethernet7/1            unassigned      YES unset  down                  down    
+Ethernet7/2            unassigned      YES unset  down                  down    
+Ethernet7/3            unassigned      YES unset  down                  down    
+Ethernet8/0            unassigned      YES unset  down                  down    
+Ethernet8/1            unassigned      YES unset  down                  down    
+Ethernet8/2            unassigned      YES unset  down                  down    
+Ethernet8/3            unassigned      YES unset  down                  down    
+Ethernet9/0            unassigned      YES unset  down                  down    
+Ethernet9/1            unassigned      YES unset  down                  down    
+Ethernet9/2            unassigned      YES unset  down                  down    
+Ethernet9/3            unassigned      YES unset  down                  down    
+Vlan10                 192.168.10.1    YES NVRAM  up                    up      
+Vlan20                 192.168.20.1    YES NVRAM  up                    up      
+Vlan1000               192.168.2.138   YES DHCP   up                    up      
+
+2025-08-13 19:08:27,604 - INFO - Output from 192.168.2.138 for 'show ip route':
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area 
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       a - application route
+       + - replicated route, % - next hop override, p - overrides from PfR
+
+Gateway of last resort is 192.168.2.2 to network 0.0.0.0
+
+S*    0.0.0.0/0 [254/0] via 192.168.2.2
+      7.0.0.0/32 is subnetted, 1 subnets
+S        7.7.7.7 is directly connected, Null0
+      192.168.2.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.2.0/24 is directly connected, Vlan1000
+L        192.168.2.138/32 is directly connected, Vlan1000
+      192.168.10.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.10.0/24 is directly connected, Vlan10
+L        192.168.10.1/32 is directly connected, Vlan10
+      192.168.20.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.20.0/24 is directly connected, Vlan20
+L        192.168.20.1/32 is directly connected, Vlan20
+
+2025-08-13 19:08:27,662 - INFO - Output from 192.168.2.140 for 'no router bgp 100':
+configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+SW4(config)#no router bgp 100
+SW4(config)#end
+SW4#
+
+2025-08-13 19:08:27,674 - INFO - Output from 192.168.2.137 for 'show run':
+Building configuration...
+
+Current configuration : 1571 bytes
+!
+! Last configuration change at 18:08:26 UTC Wed Aug 13 2025 by Samuel
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname SW1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$s2ph$i/MyfP1bXt8ygOoPmDfFt1
+!
+username Samuel privilege 15 secret 5 $1$7mCM$r4OzO.TXsJj1IujUTp8wB1
+no aaa new-model
+!
+!
+!
+!
+!
+no ip icmp rate-limit unreachable
+!
+!
+!
+no ip domain-lookup
+ip domain-name test.test
+ip cef
+no ipv6 cef
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Ethernet0/0
+ switchport trunk allowed vlan 10,20,1000
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Ethernet0/1
+ switchport access vlan 1000
+ switchport mode access
+!
+interface Ethernet0/2
+!
+interface Ethernet0/3
+!
+interface Vlan10
+ ip address 192.168.10.254 255.255.255.0
+!
+interface Vlan20
+ ip address 192.168.20.254 255.255.255.0
+!
+interface Vlan1000
+ ip address dhcp
+!
+ip forward-protocol nd
+!
+ip tcp synwait-time 5
+ip http server
+ip http secure-server
+!
+ip route 0.0.0.0 0.0.0.0 192.168.220.245
+ip route 7.7.7.7 255.255.255.255 Null0
+ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+!
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line vty 0 4
+ exec-timeout 15 0
+ login local
+ transport input ssh
+!
+!
+!
+end
+
+
+2025-08-13 19:08:27,684 - INFO - Successfully disconnected from 192.168.2.137
+2025-08-13 19:08:27,711 - INFO - Output from 192.168.2.139 for 'no router bgp 100':
+configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+SW3(config)#no router bgp 100
+SW3(config)#end
+SW3#
+
+2025-08-13 19:08:27,796 - INFO - Output from 192.168.2.140 for 'show ip int b':
+Interface              IP-Address      OK? Method Status                Protocol
+Ethernet0/0            unassigned      YES unset  up                    up      
+Ethernet0/1            unassigned      YES unset  up                    up      
+Ethernet0/2            unassigned      YES unset  down                  down    
+Ethernet0/3            unassigned      YES unset  down                  down    
+Vlan1000               192.168.2.140   YES DHCP   up                    up      
+
+2025-08-13 19:08:27,845 - INFO - Output from 192.168.2.138 for 'show mac address-table':
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+  10    aabb.cc00.0100    DYNAMIC     Et0/0
+  20    aabb.cc00.0100    DYNAMIC     Et0/0
+1000    0050.56c0.0008    DYNAMIC     Et0/0
+1000    aabb.cc00.0100    DYNAMIC     Et0/0
+1000    aabb.cc80.0300    DYNAMIC     Et1/2
+1000    aabb.cc80.0400    DYNAMIC     Et1/3
+Total Mac Addresses for this criterion: 6
+
+2025-08-13 19:08:27,856 - INFO - Output from 192.168.2.139 for 'show ip int b':
+Interface              IP-Address      OK? Method Status                Protocol
+Ethernet0/0            unassigned      YES unset  up                    up      
+Ethernet0/1            unassigned      YES unset  up                    up      
+Ethernet0/2            unassigned      YES unset  down                  down    
+Ethernet0/3            unassigned      YES unset  down                  down    
+Vlan1000               192.168.2.139   YES DHCP   up                    up      
+
+2025-08-13 19:08:27,944 - INFO - Output from 192.168.2.140 for 'show ip route':
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area 
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       a - application route
+       + - replicated route, % - next hop override, p - overrides from PfR
+
+Gateway of last resort is 192.168.2.2 to network 0.0.0.0
+
+S*    0.0.0.0/0 [254/0] via 192.168.2.2
+      7.0.0.0/32 is subnetted, 1 subnets
+S        7.7.7.7 is directly connected, Null0
+      192.168.2.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.2.0/24 is directly connected, Vlan1000
+L        192.168.2.140/32 is directly connected, Vlan1000
+
+2025-08-13 19:08:28,113 - INFO - Output from 192.168.2.139 for 'show ip route':
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area 
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, H - NHRP, l - LISP
+       a - application route
+       + - replicated route, % - next hop override, p - overrides from PfR
+
+Gateway of last resort is 192.168.2.2 to network 0.0.0.0
+
+S*    0.0.0.0/0 [254/0] via 192.168.2.2
+      7.0.0.0/32 is subnetted, 1 subnets
+S        7.7.7.7 is directly connected, Null0
+      192.168.2.0/24 is variably subnetted, 2 subnets, 2 masks
+C        192.168.2.0/24 is directly connected, Vlan1000
+L        192.168.2.139/32 is directly connected, Vlan1000
+
+2025-08-13 19:08:28,410 - INFO - Output from 192.168.2.140 for 'show mac address-table':
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+  10    aabb.cc00.0231    DYNAMIC     Et0/0
+1000    0050.56c0.0008    DYNAMIC     Et0/0
+1000    aabb.cc00.0231    DYNAMIC     Et0/0
+Total Mac Addresses for this criterion: 3
+
+2025-08-13 19:08:28,614 - INFO - Output from 192.168.2.139 for 'show mac address-table':
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+  10    aabb.cc00.0221    DYNAMIC     Et0/0
+1000    0050.56c0.0008    DYNAMIC     Et0/0
+1000    aabb.cc00.0221    DYNAMIC     Et0/0
+Total Mac Addresses for this criterion: 3
+
+2025-08-13 19:08:28,619 - INFO - Output from 192.168.2.138 for 'show run':
+Building configuration...
+
+Current configuration : 3027 bytes
+!
+! Last configuration change at 18:08:26 UTC Wed Aug 13 2025 by Samuel
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname SW2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+username Samuel privilege 15 secret 5 $1$X2cZ$yjcAtd9NkljKQbFqhID2p1
+no aaa new-model
+!
+!
+!
+!
+!
+no ip icmp rate-limit unreachable
+!
+!
+ip dhcp pool PC
+ network 192.168.10.0 255.255.255.0
+ default-router 192.168.10.1 
+!
+!
+no ip domain-lookup
+ip domain-name test.test
+ip cef
+no ipv6 cef
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Ethernet0/0
+ switchport trunk allowed vlan 10,20,1000
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Ethernet0/1
+ switchport access vlan 10
+ switchport mode access
+!
+interface Ethernet0/2
+ switchport access vlan 10
+ switchport mode access
+!
+interface Ethernet0/3
+ switchport access vlan 10
+ switchport mode access
+!
+interface Ethernet1/0
+ switchport access vlan 10
+ switchport mode access
+!
+interface Ethernet1/1
+ switchport access vlan 10
+ switchport mode access
+!
+interface Ethernet1/2
+ switchport trunk allowed vlan 10,20,1000
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Ethernet1/3
+ switchport trunk allowed vlan 10,20,1000
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Ethernet2/0
+ switchport mode access
+!
+interface Ethernet2/1
+ switchport mode access
+!
+interface Ethernet2/2
+ switchport mode access
+!
+interface Ethernet2/3
+ switchport mode access
+!
+interface Ethernet3/0
+ switchport mode access
+!
+interface Ethernet3/1
+ switchport mode access
+!
+interface Ethernet3/2
+ switchport mode access
+!
+interface Ethernet3/3
+ switchport mode access
+!
+interface Ethernet4/0
+!
+interface Ethernet4/1
+!
+interface Ethernet4/2
+!
+interface Ethernet4/3
+!
+interface Ethernet5/0
+!
+interface Ethernet5/1
+!
+interface Ethernet5/2
+!
+interface Ethernet5/3
+!
+interface Ethernet6/0
+!
+interface Ethernet6/1
+!
+interface Ethernet6/2
+!
+interface Ethernet6/3
+!
+interface Ethernet7/0
+!
+interface Ethernet7/1
+!
+interface Ethernet7/2
+!
+interface Ethernet7/3
+!
+interface Ethernet8/0
+!
+interface Ethernet8/1
+!
+interface Ethernet8/2
+!
+interface Ethernet8/3
+!
+interface Ethernet9/0
+!
+interface Ethernet9/1
+!
+interface Ethernet9/2
+!
+interface Ethernet9/3
+!
+interface Vlan10
+ ip address 192.168.10.1 255.255.255.0
+!
+interface Vlan20
+ ip address 192.168.20.1 255.255.255.0
+!
+interface Vlan1000
+ ip address dhcp
+!
+ip forward-protocol nd
+!
+ip tcp synwait-time 5
+ip http server
+ip http secure-server
+!
+ip route 7.7.7.7 255.255.255.255 Null0
+ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+!
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line vty 0 4
+ exec-timeout 15 0
+ login local
+ transport input ssh
+!
+!
+!
+end
+
+
+2025-08-13 19:08:28,640 - INFO - Successfully disconnected from 192.168.2.138
+2025-08-13 19:08:28,863 - INFO - Output from 192.168.2.140 for 'show run':
+Building configuration...
+
+Current configuration : 1361 bytes
+!
+! Last configuration change at 18:08:26 UTC Wed Aug 13 2025 by Samuel
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname SW4
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+username Samuel privilege 15 secret 5 $1$OLMv$jq9ZI4L2xMGJ0oSYbcO5G/
+no aaa new-model
+!
+!
+!
+!
+!
+no ip icmp rate-limit unreachable
+!
+!
+!
+no ip domain-lookup
+ip domain-name test.test
+ip cef
+no ipv6 cef
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Ethernet0/0
+ switchport trunk allowed vlan 10,20,1000
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Ethernet0/1
+ switchport access vlan 10
+ switchport mode access
+!
+interface Ethernet0/2
+!
+interface Ethernet0/3
+!
+interface Vlan1000
+ ip address dhcp
+!
+ip forward-protocol nd
+!
+ip tcp synwait-time 5
+ip http server
+ip http secure-server
+!
+ip route 7.7.7.7 255.255.255.255 Null0
+ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+!
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line vty 0 4
+ exec-timeout 15 0
+ login local
+ transport input ssh
+!
+!
+!
+end
+
+
+2025-08-13 19:08:28,884 - INFO - Successfully disconnected from 192.168.2.140
+2025-08-13 19:08:28,889 - INFO - Output from 192.168.2.139 for 'show run':
+Building configuration...
+
+Current configuration : 1361 bytes
+!
+! Last configuration change at 18:08:26 UTC Wed Aug 13 2025 by Samuel
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname SW3
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+username Samuel privilege 15 secret 5 $1$qbo8$TIIerS7DdVqr00qIYm2sa1
+no aaa new-model
+!
+!
+!
+!
+!
+no ip icmp rate-limit unreachable
+!
+!
+!
+no ip domain-lookup
+ip domain-name test.test
+ip cef
+no ipv6 cef
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Ethernet0/0
+ switchport trunk allowed vlan 10,20,1000
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Ethernet0/1
+ switchport access vlan 10
+ switchport mode access
+!
+interface Ethernet0/2
+!
+interface Ethernet0/3
+!
+interface Vlan1000
+ ip address dhcp
+!
+ip forward-protocol nd
+!
+ip tcp synwait-time 5
+ip http server
+ip http secure-server
+!
+ip route 7.7.7.7 255.255.255.255 Null0
+ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+!
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line vty 0 4
+ exec-timeout 15 0
+ login local
+ transport input ssh
+!
+!
+!
+end
+
+
+2025-08-13 19:08:28,910 - INFO - Successfully disconnected from 192.168.2.139

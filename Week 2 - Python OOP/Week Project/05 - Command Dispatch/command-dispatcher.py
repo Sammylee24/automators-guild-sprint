@@ -3,6 +3,8 @@ import sys
 from device_list import devices
 import logging
 import argparse
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from tqdm import tqdm
 
 class NetworkDevice():
     def __init__(self, ip, user, password, device_type, port, dry_run=False):
@@ -43,13 +45,16 @@ class NetworkDevice():
             logging.error(f"Error enabling {self.ip}")
             sys.exit(1)
 
-    def execute_command(self, command_file):
-        try:
-            with open(command_file) as comm_f:
-                self.commands = [line.strip() for line in comm_f if line.strip()]
-        except FileNotFoundError:
-            logging.error(f"Command file '{command_file}' not found.")
-            return
+    def execute_command(self, commands):
+        if isinstance(commands, list):
+            self.commands = commands
+        else:
+            try:
+                with open(commands) as comm_f:
+                    self.commands = [line.strip() for line in comm_f if line.strip()]
+            except FileNotFoundError:
+                logging.error(f"Command file '{commands}' not found.")
+                return
 
         for cmd in self.commands:
             if self.dry_run:
@@ -58,12 +63,16 @@ class NetworkDevice():
                 output = self.ssh.send_command(cmd)
                 logging.info(f"Output from {self.ip} for '{cmd}':\n{output}\n")
 
-    def execute_config(self, config_file):
-        try:
-            with open(config_file) as conf_f:
-                self.configs = [line.strip() for line in conf_f if line.strip()]
-        except FileNotFoundError:
-                logging.error(f"Config file '{config_file}' not found.")
+
+    def execute_config(self, configs):
+        if isinstance(configs, list):
+            self.configs = configs
+        else:
+            try:
+                with open(configs) as conf_f:
+                    self.configs = [line.strip() for line in conf_f if line.strip()]
+            except FileNotFoundError:
+                logging.error(f"Config file '{configs}' not found.")
                 return
 
         for cfg in self.configs:
@@ -84,57 +93,102 @@ class NetworkDevice():
             logging.error(f"Failure disconnecting from {self.ip}")
             sys.exit(1)
 
-def main():
-    parser = argparse.ArgumentParser(description="Network Automation Script")
-    parser.add_argument(
-        "--dry-run",
-        action="store_true",
-        help="Simulate execution without connecting to devices"
-    )
-    parser.add_argument(
-        "--commands",
-        default="commands.txt",
-        help="File containing show commands"
-    )
-    parser.add_argument(
-        "--configs",
-        default="configs.txt",
-        help="File containing configuration commands"
-    )
-    parser.add_argument(
-        "--log",
-        default="log.txt",
-        help="Log file path"
-    )
-    parser.add_argument(
-        "--vendor",
-        default='cisco-ios',
-        help="What device vendor?"
+def read_lines_from_file(path):
+    """
+    Read non-empty, stripped lines from a file. Returns [] if file is None/empty.
+    """
+    if not path:
+        return []
+    try:
+        with open(path, "r") as f:
+            return [line.strip() for line in f if line.strip()]
+    except FileNotFoundError:
+        logging.error(f"File not found: {path}")
+        return []
+
+def process_device(dev, args, show_cmds, cfg_cmds):
+    """
+    Worker function run in a thread for each device.
+    Returns a status string for progress reporting.
+    """
+    device = NetworkDevice(
+        ip=dev["host"],
+        user=dev["username"],
+        password=dev["password"],
+        device_type=dev["device_type"],
+        port=dev["port"],
+        dry_run=args.dry_run,
     )
 
+    try:
+        device.connect()
+        # Normalize vendor default (Netmiko uses 'cisco_ios')
+        vendor = args.vendor or "cisco_ios"
+        device.enable(dev_type=vendor)
+        device.execute_config(cfg_cmds)
+        device.execute_command(show_cmds)
+        device.disconnect()
+        return f"{dev['host']}: OK"
+    except Exception as e:
+        # Ensure we attempt to disconnect if something failed mid-stream
+        try:
+            device.disconnect()
+        except Exception:
+            pass
+        return f"{dev['host']}: ERROR ({e})"
+
+def main():
+    parser = argparse.ArgumentParser(description="Network Automation (multithreaded + progress)")
+    parser.add_argument("--dry-run", action="store_true", help="Simulate execution without connecting to devices")
+    parser.add_argument("--commands", default="commands.txt", help="File containing show/exec commands")
+    parser.add_argument("--configs", default="configs.txt", help="File containing configuration commands")
+    parser.add_argument("--log", default="log.txt", help="Log file path")
+    parser.add_argument("--vendor", default="cisco_ios", help="Device vendor/platform (e.g., cisco_ios)")
+    parser.add_argument("--workers", type=int, default=5, help="Max number of devices to process in parallel")
     args = parser.parse_args()
 
     logging.basicConfig(
-            filename=args.log,
-            level=logging.INFO,
-            format='%(asctime)s - %(levelname)s - %(message)s',
-        )
+        filename=args.log,
+        level=logging.INFO,
+        format="%(asctime)s - %(levelname)s - %(message)s",
+    )
 
-    for dev in devices:
-        device = NetworkDevice(
-            ip=dev['host'],
-            user=dev['username'],
-            password=dev['password'],
-            device_type=dev['device_type'],
-            port=dev['port'],
-            dry_run=args.dry_run
-        )
+    # Read command files once and share across threads
+    show_cmds = read_lines_from_file(args.commands)
+    cfg_cmds = read_lines_from_file(args.configs)
 
-        device.connect()
-        device.enable(dev_type=args.vendor)
-        device.execute_config(config_file=args.configs)
-        device.execute_command(command_file=args.commands)
-        device.disconnect()
+    total = len(devices)
+    if total == 0:
+        print("No devices found in device_list.devices")
+        return
+
+    # Progress bar setup (tqdm if available; else simple prints)
+    if tqdm:
+        pbar = tqdm(total=total, desc="Processing devices", unit="device")
+    else:
+        pbar = None
+        print(f"Processing {total} device(s)...")
+
+    results = []
+    with ThreadPoolExecutor(max_workers=args.workers) as executor:
+        future_map = {executor.submit(process_device, dev, args, show_cmds, cfg_cmds): dev for dev in devices}
+        for future in as_completed(future_map):
+            res = future.result()
+            results.append(res)
+            # Update progress
+            if pbar:
+                pbar.update(1)
+            else:
+                print(res)
+
+    if pbar:
+        pbar.close()
+
+    # Print a concise summary to stdout (logs already contain full details)
+    print("\nRun summary:")
+    for r in results:
+        print(" -", r)
+
 
 if __name__ == "__main__":
     main()
