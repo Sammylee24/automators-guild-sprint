@@ -1,4 +1,5 @@
 import boto3
+import os
 
 class aws():
     def __init__(self):
@@ -103,6 +104,12 @@ class aws():
                 GatewayId=self.igw_id
             )
             print("     - Associated Public RT with Public Subnet.")
+
+            # Associate Route Table with Public Subnet
+            self.ec2_client.associate_route_table(
+                RouteTableId=self.public_rt_id,
+                SubnetId=self.public_subnet_id
+            )
         except Exception as e:
             print(f"❌ Error with Public Route Table: {e}")
 
@@ -219,6 +226,132 @@ class aws():
         except Exception as e:
             print(f"❌ Error creating Security Groups: {e}")
 
+    
+
+    # Add this inside your 'aws' class
+
+    def create_ec2_key_pair(self, key_name='boto3-lab-key'):
+        """
+        Creates an EC2 key pair if it doesn't exist and saves the private key.
+        """
+        self.key_name = key_name
+        private_key_file = f"{self.key_name}.pem"
+
+        # Check if the key file already exists locally
+        if os.path.exists(private_key_file):
+            print(f"✅ Key pair '{self.key_name}' already exists locally. Skipping creation.")
+            return
+
+        try:
+            print(f"🔎 Checking for existing key pair named '{self.key_name}' in AWS...")
+            # This will error if the key doesn't exist, which is what we want.
+            self.ec2_client.describe_key_pairs(KeyNames=[self.key_name])
+            print(f"   - Key pair found in AWS but not locally. Please manage keys manually or delete from AWS.")
+            # For a robust script, you might delete and recreate, but for a lab, this is safer.
+            return
+            
+        except self.ec2_client.exceptions.ClientError as e:
+            if 'InvalidKeyPair.NotFound' in str(e):
+                print(f"   - Key pair not found. Creating a new one...")
+                key_pair_response = self.ec2_client.create_key_pair(KeyName=self.key_name)
+                
+                # Save the private key to a .pem file
+                with open(private_key_file, 'w') as f:
+                    f.write(key_pair_response['KeyMaterial'])
+                
+                # Set permissions for the key file (important for Linux/macOS)
+                os.chmod(private_key_file, 0o400)
+                
+                print(f"✅ Key pair '{self.key_name}' created and saved to '{private_key_file}'.")
+            else:
+                raise e
+
+    def _get_latest_amazon_linux_ami(self):
+        """
+        Finds the ID of the most recent Amazon Linux 2 AMI.
+        """
+        try:
+            print("🔎 Finding the latest Amazon Linux 2 AMI...")
+            response = self.ec2_client.describe_images(
+                Owners=['amazon'],
+                Filters=[
+                    {'Name': 'name', 'Values': ['amzn2-ami-hvm-*-x86_64-gp2']},
+                    {'Name': 'state', 'Values': ['available']},
+                ]
+            )
+            # Sort images by creation date to find the newest one
+            images = sorted(response['Images'], key=lambda x: x['CreationDate'], reverse=True)
+            ami_id = images[0]['ImageId']
+            print(f"   - Found AMI ID: {ami_id}")
+            return ami_id
+        except Exception as e:
+            print(e)
+
+    def create_ec2_instances(self):
+        # Creates the Web and Database EC2 instances.
+        try:
+            # First, get the latest AMI ID so our script is always up-to-date
+            ami_id = self._get_latest_amazon_linux_ami()
+
+            # --- Launch the Web Server in the Public Subnet ---
+            print("🚀 Launching Web Server instance...")
+            web_instance_response = self.ec2_client.run_instances(
+                ImageId=ami_id,
+                InstanceType='t2.micro',  # Free tier eligible
+                KeyName=self.key_name,
+                MaxCount=1,
+                MinCount=1,
+                NetworkInterfaces=[{
+                    'DeviceIndex': 0,
+                    'SubnetId': self.public_subnet_id,
+                    'Groups': [self.web_sg_id],
+                    'AssociatePublicIpAddress': True  # Give it a public IP
+                }],
+                TagSpecifications=[{
+                    'ResourceType': 'instance',
+                    'Tags': [{'Key': 'Name', 'Value': 'Boto3-Web-Server'}]
+                }]
+            )
+            web_instance_id = web_instance_response['Instances'][0]['InstanceId']
+            print(f"✅ Web Server instance launched with ID: {web_instance_id}")
+
+            # --- Launch the Database Server in the Private Subnet ---
+            print("🚀 Launching Database Server instance...")
+            db_instance_response = self.ec2_client.run_instances(
+                ImageId=ami_id,
+                InstanceType='t2.micro',
+                KeyName=self.key_name,
+                MaxCount=1,
+                MinCount=1,
+                NetworkInterfaces=[{
+                    'DeviceIndex': 0,
+                    'SubnetId': self.private_subnet_id,
+                    'Groups': [self.database_sg_id],
+                    'AssociatePublicIpAddress': False # NO public IP
+                }],
+                TagSpecifications=[{
+                    'ResourceType': 'instance',
+                    'Tags': [{'Key': 'Name', 'Value': 'Boto3-Database-Server'}]
+                }]
+            )
+            db_instance_id = db_instance_response['Instances'][0]['InstanceId']
+            print(f"✅ Database Server instance launched with ID: {db_instance_id}")
+            
+            # --- Wait for instances to be running ---
+            print("     - Waiting for instances to enter the 'running' state...")
+            waiter = self.ec2_client.get_waiter('instance_running')
+            waiter.wait(InstanceIds=[web_instance_id, db_instance_id])
+            print("✅ Both instances are now running.")
+
+            # Get the public IP of the web server to display it
+            desc_response = self.ec2_client.describe_instances(InstanceIds=[web_instance_id])
+            public_ip = desc_response['Reservations'][0]['Instances'][0]['PublicIpAddress']
+            print(f"\n🌐 You can connect to the Web Server via SSH: ssh -i '{self.key_name}.pem' ec2-user@{public_ip}")
+
+        except Exception as e:
+            print(f"❌ Error creating EC2 instances: {e}")
+
+
 def main():
     cidr = '10.0.0.0/16'
     public_subnet = '10.0.1.0/24'
@@ -240,6 +373,9 @@ def main():
     aws_client.create_private_table_route(route=private_table_route)
     aws_client.web_server_security_group()
     aws_client.database_server_security_group()
+
+    aws_client.create_ec2_key_pair() # Creates the key pair
+    aws_client.create_ec2_instances() # Creates the instances
 
     print("\n🚀 Full two-tier network architecture successfully deployed!")
 

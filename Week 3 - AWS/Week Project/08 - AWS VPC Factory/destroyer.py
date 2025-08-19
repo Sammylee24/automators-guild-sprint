@@ -1,11 +1,13 @@
 import boto3
-import time
+import os
+import stat
 
 # Create a client object for the EC2 service
 ec2_client = boto3.client('ec2')
 
 # --- CONFIGURATION ---
 VPC_NAME_TAG = 'Boto3-VPC'
+KEY_PAIR_NAME = 'boto3-lab-key' # The name of the key pair your factory script creates
 
 print("Script starting...")
 
@@ -37,7 +39,7 @@ try:
     else:
         print("✅ No EC2 instances found.")
 
-    # --- Step 3: Delete NAT Gateways --- (MOVED UP)
+    # --- Step 3: Delete NAT Gateways ---
     print("\n🔎 Searching for and deleting NAT Gateways in the VPC...")
     nat_gw_filter = [{'Name': 'vpc-id', 'Values': [vpc_id]}, {'Name': 'state', 'Values': ['pending', 'available']}]
     nat_gateways = ec2_client.describe_nat_gateways(Filters=nat_gw_filter)['NatGateways']
@@ -53,7 +55,7 @@ try:
     else:
         print("✅ No active NAT Gateways found.")
 
-    # --- Step 4: Release Elastic IPs --- (MOVED UP)
+    # --- Step 4: Release Elastic IPs ---
     print("\n🔎 Searching for and releasing unassociated Elastic IPs...")
     eips = ec2_client.describe_addresses(Filters=[{'Name': 'domain', 'Values': ['vpc']}])['Addresses']
     
@@ -70,7 +72,7 @@ try:
     else:
         print("✅ No Elastic IPs found in this account.")
 
-    # --- Step 5: Detach and Delete Internet Gateways --- (NOW IT'S SAFE)
+    # --- Step 5: Detach and Delete Internet Gateways ---
     print("\n🔎 Searching for and deleting Internet Gateways...")
     igw_filter = [{'Name': 'attachment.vpc-id', 'Values': [vpc_id]}]
     igws = ec2_client.describe_internet_gateways(Filters=igw_filter)['InternetGateways']
@@ -83,10 +85,8 @@ try:
         print(f"✅ Deleted {len(igws)} Internet Gateway(s).")
     else:
         print("✅ No Internet Gateway found.")
-
-    # --- The Rest of the Cleanup ---
     
-    # Step 6: Delete Subnets
+    # --- Step 6: Delete Subnets ---
     print("\n🔎 Searching for and deleting Subnets...")
     subnets = ec2_client.describe_subnets(Filters=[{'Name': 'vpc-id', 'Values': [vpc_id]}])['Subnets']
     if subnets:
@@ -113,7 +113,6 @@ try:
     if sgs:
         for sg in sgs:
             if sg['GroupName'] != 'default':
-                # You may need to revoke rules if they depend on other groups, but delete_security_group often handles this.
                 try:
                     ec2_client.delete_security_group(GroupId=sg['GroupId'])
                 except Exception as e:
@@ -122,12 +121,42 @@ try:
     else:
         print("✅ No custom Security Groups found.")
 
-    # Step 9: Finally, Delete the VPC
+    # Step 9: Delete the VPC
     print(f"\n🗑️ Deleting VPC {vpc_id}...")
     ec2_client.delete_vpc(VpcId=vpc_id)
     print("✅ VPC deleted successfully.")
 
+ # --- Final Step: Delete the EC2 Key Pair ---
+    print(f"\n🔑 Searching for and deleting EC2 key pair '{KEY_PAIR_NAME}'...")
+    try:
+        # First, delete the key from AWS
+        ec2_client.delete_key_pair(KeyName=KEY_PAIR_NAME)
+        print(f"✅ EC2 key pair '{KEY_PAIR_NAME}' deleted from AWS.")
+        
+    except ec2_client.exceptions.ClientError as e:
+        if 'InvalidKeyPair.NotFound' in str(e):
+            print(f"✅ Key pair '{KEY_PAIR_NAME}' not found in AWS. Nothing to delete.")
+        else:
+            # Re-raise the exception if it's a different error
+            print(f"❌ An error occurred deleting the key pair from AWS: {e}")
+
+    # Now, handle the local file
+    try:
+        key_file = f"{KEY_PAIR_NAME}.pem"
+        if os.path.exists(key_file):
+            # THIS IS THE FIX: Make the file writable before deleting
+            print(f"   - Making local key file '{key_file}' writable...")
+            os.chmod(key_file, stat.S_IWRITE) # Or you can use 0o600
+            
+            # Now, delete the file
+            os.remove(key_file)
+            print(f"✅ Local key file '{key_file}' deleted.")
+            
+    except Exception as e:
+        print(f"❌ An error occurred deleting the local key file: {e}")
+
+
 except Exception as e:
-    print(f"❌ An error occurred: {e}")
+    print(f"❌ An error occurred during the main process: {e}")
 
 print("\nScript finished.")
