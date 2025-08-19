@@ -226,10 +226,6 @@ class aws():
         except Exception as e:
             print(f"❌ Error creating Security Groups: {e}")
 
-    
-
-    # Add this inside your 'aws' class
-
     def create_ec2_key_pair(self, key_name='boto3-lab-key'):
         """
         Creates an EC2 key pair if it doesn't exist and saves the private key.
