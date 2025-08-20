@@ -50,7 +50,7 @@ class aws():
     def create_private_subnet(self, private_subnet):
         try:
             # Create the Private Subnet
-            self.private_subnet_response = self.ec2_client.create_subnet(VpcId=self.vpc_id, CidrBlock='10.0.2.0/24')
+            self.private_subnet_response = self.ec2_client.create_subnet(VpcId=self.vpc_id, CidrBlock=private_subnet)
             self.private_subnet_id = self.private_subnet_response['Subnet']['SubnetId']
             self.ec2_client.create_tags(Resources=[self.private_subnet_id], Tags=[{
                 'Key': 'Name', 
