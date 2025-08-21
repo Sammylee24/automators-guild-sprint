@@ -1,7 +1,7 @@
 import boto3
 import os
 
-class aws():
+class Factory():
     def __init__(self):
         pass
 
@@ -355,7 +355,7 @@ def main():
     public_table_route = '0.0.0.0/0'
     private_table_route = '0.0.0.0/0'
 
-    aws_client = aws()
+    aws_client = Factory()
     aws_client.client_setup()
     aws_client.create_vpc(cidr=cidr)
     aws_client.create_public_subnet(public_subnet=public_subnet)
