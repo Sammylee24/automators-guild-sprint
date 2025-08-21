@@ -10,6 +10,7 @@ aws-toolkit/commission/
 ├── create_security_group.py
 ├── create_ec2_instance.py
 └── HOW_TO_USE_COMMISSION.md
+```
 
 ---
 
