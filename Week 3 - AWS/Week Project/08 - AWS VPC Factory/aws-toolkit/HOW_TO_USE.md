@@ -1,9 +1,3 @@
-Of course. This is an essential piece of documentation. A `HOW_TO_USE.md` file is crucial for making your project understandable and usable by others (and by your future self!).
-
-Here is a comprehensive guide, written in a clear, step-by-step manner, perfect for a novice. It explains the "what," the "why," and the "how."
-
-You can save this directly as a file named `HOW_TO_USE.md` in your `aws-toolkit/` project directory. The `.md` extension means it will format nicely on GitHub.
-
 ---
 
 ### `HOW_TO_USE.md`
