@@ -111,7 +111,7 @@ parent_directory/
 Run the following command from inside the `decommission/` directory:
 
 ```bash
-python delete_key_pair.py --key-name boto3-lab-key --key-path ../aws-toolkit/commission
+python delete_key_pair.py --key-name boto3-lab-key
 ```
 *   The `--key-path` argument tells the script to look one directory up (`..`) and then down into `aws-toolkit/commission/` to find the `.pem` file.
 

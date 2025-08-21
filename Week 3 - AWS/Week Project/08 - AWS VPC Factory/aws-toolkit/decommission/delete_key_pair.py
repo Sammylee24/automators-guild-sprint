@@ -1,4 +1,4 @@
-# delete_key_pair.py
+# delete_key_pair.py (Updated and Corrected)
 import boto3
 import os
 import stat
@@ -38,7 +38,12 @@ def delete_key_pair(ec2_client, key_name, key_path):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Delete an EC2 Key Pair from AWS and a local .pem file.")
     parser.add_argument('--key-name', required=True, help='The name of the key pair (e.g., boto3-lab-key).')
-    parser.add_argument('--key-path', default='../aws-toolkit/commission', help='The path to the directory where the .pem file is stored.')
+    
+    # --- THIS IS THE FIX ---
+    # The new default path correctly goes up one level, then into the 'commission' folder.
+    parser.add_argument('--key-path', default='../commission', help='The path to the directory where the .pem file is stored.')
+    # --- END OF FIX ---
+    
     args = parser.parse_args()
     
     client = boto3.client('ec2')
