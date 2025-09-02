@@ -1,0 +1,5 @@
+# For Linux servers, we use the standard SSH connection, not network_cli
+ansible_connection: ssh
+# We might need to specify a different password or user here if it's different
+# from our network devices.
+ansible_password: "My_Linux_Server_Password" 

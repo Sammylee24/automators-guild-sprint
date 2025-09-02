@@ -1,0 +1,13 @@
+# group_vars/all.yaml (This file is encrypted)
+
+# --- DEFAULT CREDENTIALS ---
+# These will be used for most devices (Cisco, Juniper, etc.)
+ansible_user: "Samuel"
+ansible_password: "Samuel@123"
+ansible_become: yes
+# ansible_become_method: enable
+# ansible_become_password: "Your_Main_Enable_Password"
+
+# --- CONNECTION SETTINGS ---
+# Using 'network_cli' for persistent connections to network devices
+ansible_connection: ansible.netcommon.network_cli

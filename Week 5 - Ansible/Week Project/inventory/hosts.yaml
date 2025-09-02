@@ -1,0 +1,262 @@
+all:
+  children:
+    # ==========================================================
+    # 1. PLATFORM GROUPS (Defines the OS and connection type)
+    # ==========================================================
+    cisco:
+      children:
+        cisco_ios:
+          hosts:
+            HQ1_R1:
+            HQ1_R2:
+            HQ_Core_SW:
+            HQ_Access_SW:
+            HQ2_EdgeSW:
+            HQ2_CoreSW:
+            HQ2_AggSW:
+            HQ2_AccSW:
+            DC1_Edge:
+            DC1_SW1:
+            Remote_Site1:
+            Remote_Site2:
+            Satellite_Site1:
+            Satellite_Site2:
+            Satellite_Site3:
+            R1:
+            R2:
+            R3:
+            R4:
+            R5:
+            R6:
+            C1:
+            C2:
+            D1:
+            D2:
+            D3:
+            D4:
+            E1:
+            E2:
+            E3:
+            E4:
+        cisco_asa:
+          hosts:
+            HQ2_FW:
+    juniper:
+      children:
+        juniper_junos:
+          hosts:
+            Remote_Site3:
+    huawei:
+      children:
+        huawei_vrp:
+          hosts:
+            HQ1_FW:
+            HQ2_R1:
+            HQ2_R2:
+            DC2_FW:
+            DC2_CoreSW:
+            DC2_TORSw1:
+            DC2_TORSw2:
+    mikrotik:
+      children:
+        mikrotik_routeros:
+          hosts:
+            Warehouse_Site1:
+    linux:
+      hosts:
+        DC1_Server1:
+        NCE:
+        IT_Server1:
+        IT_Server2:
+
+    # ==========================================================
+    # 2. FUNCTIONAL GROUPS (Defines the device's role)
+    # THIS IS THE NEWLY COMPLETED SECTION
+    # ==========================================================
+    network_devices:
+      children:
+        routers:
+        switches:
+        firewalls:
+    
+    routers:
+      children:
+        core_routers:
+        edge_routers:
+        dist_routers:
+        access_routers:
+    
+    switches:
+      children:
+        core_switches:
+        agg_switches:
+        access_switches:
+        tor_switches:
+
+    # --- POPULATING THE FUNCTIONAL GROUPS ---
+    core_routers:
+      hosts:
+        R1:
+        R2:
+        R3:
+        R4:
+        R5:
+        R6:
+        C1:
+        C2:
+    edge_routers:
+      hosts:
+        DC1_Edge:
+        HQ2_EdgeSW:
+    dist_routers:
+      hosts:
+        D1:
+        D2:
+        D3:
+        D4:
+    access_routers:
+      hosts:
+        HQ1_R1:
+        HQ1_R2:
+        HQ2_R1:
+        HQ2_R2:
+        E1:
+        E2:
+        E3:
+        E4:
+
+    core_switches:
+      hosts:
+        HQ_Core_SW:
+        HQ2_CoreSW:
+        DC2_CoreSW:
+    agg_switches:
+      hosts:
+        HQ2_AggSW:
+    access_switches:
+      hosts:
+        HQ_Access_SW:
+        HQ2_AccSW:
+        DC1_SW1:
+    tor_switches:
+      hosts:
+        DC2_TORSw1:
+        DC2_TORSw2:
+
+    firewalls:
+      hosts:
+        HQ1_FW:
+        HQ2_FW:
+        DC2_FW:
+
+    servers:
+      children:
+        linux:
+
+    # ==========================================================
+    # 3. DOMAIN / LOCATION GROUPS (Defines where it lives)
+    # THIS IS THE NEWLY COMPLETED SECTION
+    # ==========================================================
+    service_providers:
+      children:
+        isp1:
+        isp2:
+
+    enterprise:
+      children:
+        corp_hq1:
+        corp_hq2:
+        datacenters:
+        remote_sites:
+
+    datacenters:
+      children:
+        dc1:
+        dc2:
+
+    remote_sites:
+      children:
+        warehouses:
+        satellites:
+    
+    # --- POPULATING THE LOCATION GROUPS ---
+    isp1:
+      hosts:
+        R1:
+        R2:
+        R3:
+        R4:
+        R5:
+        R6:
+    isp2:
+      hosts:
+        C1:
+        C2:
+        D1:
+        D2:
+        D3:
+        D4:
+        E1:
+        E2:
+        E3:
+        E4:
+
+    corp_hq1:
+      hosts:
+        HQ1_R1:
+        HQ1_R2:
+        HQ_Core_SW:
+        HQ_Access_SW:
+        HQ1_FW:
+        # HQ1_VPC1 & 2 are not manageable nodes, so not in inventory
+    corp_hq2:
+      hosts:
+        HQ2_R1:
+        HQ2_R2:
+        HQ2_EdgeSW:
+        HQ2_CoreSW:
+        HQ2_AggSW:
+        HQ2_AccSW:
+        HQ2_FW:
+        # HQ2_VPC1 is not a manageable node
+
+    dc1:
+      hosts:
+        DC1_Edge:
+        DC1_SW1:
+        DC1_Server1:
+    dc2:
+      hosts:
+        DC2_FW:
+        DC2_CoreSW:
+        DC2_TORSw1:
+        DC2_TORSw2:
+        IT_Server1:
+        IT_Server2:
+        NCE:
+        
+    warehouses:
+        hosts:
+            Warehouse_Site1:
+            
+    satellites:
+        hosts:
+            Satellite_Site1:
+            Satellite_Site2:
+            Satellite_Site3:
+            
+    # Note: 'Remote_Site1/2/3' are also part of 'remote_sites'
+    remote_sites:
+        children:
+            warehouses:
+            satellites:
+        hosts:
+            Remote_Site1:
+            Remote_Site2:
+            Remote_Site3:
+
+    # ====================================================================
+    # DYNAMIC GROUPS (Composed from other groups)
+    # These are defined in a separate file if needed, or just know them.
+    # e.g., 'isp1_routers' is the intersection of 'isp1' and 'routers'
+    # ====================================================================

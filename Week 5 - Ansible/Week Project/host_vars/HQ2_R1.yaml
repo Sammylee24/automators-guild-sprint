@@ -1,0 +1,7 @@
+ansible_host: 30.0.2.3
+
+# --- CREDENTIAL OVERRIDE ---
+# These values will be used instead of the ones in group_vars/all.yaml
+# ONLY for this specific host.
+ansible_user: "samuel"
+ansible_password: "Huawei@123"
