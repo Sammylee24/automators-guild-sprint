@@ -1,0 +1,17 @@
+---
+
+- name: Display current configuration
+  hosts: cisco_ios
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+    - name: Display current configuration
+      cisco.ios.ios_command:
+        commands:
+          - show run
+      register: interface_output
+
+    - name: Show current configuration on screen
+      ansible.builtin.debug:
+        var: interface_output.stdout_lines
