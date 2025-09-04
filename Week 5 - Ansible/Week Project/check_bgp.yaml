@@ -1,0 +1,52 @@
+---
+
+- name: Check BGP configuration on device
+  hosts: C1
+  gather_facts: false
+
+  tasks:
+
+    - name: Check BGP peers
+      cisco.ios.ios_command:
+        commands:
+         - show ip bgp vpnv4 all summary
+      register: bgp_peers
+
+    - name: Check BGP routing table
+      cisco.ios.ios_command:
+        commands:
+          - show ip bgp all
+      register: bgp_routes
+
+    - name: Check global routing table
+      cisco.ios.ios_command:
+        commands:
+          - show ip route
+          - show ip route vrf ISP1_PEERING
+      register: ip_routing
+
+    - name: Check current device configuration
+      cisco.ios.ios_command:
+        commands:
+          - show running-config | section bgp
+      register: current_config
+
+    - name: Print BGP Peers
+      ansible.builtin.debug:
+        var: bgp_peers.stdout_lines
+      when: bgp_peers is defined
+      
+    - name: Print BGP routing table
+      ansible.builtin.debug:
+        var: bgp_routes.stdout_lines
+      when: bgp_routes is defined
+
+    - name: Print IP routing table
+      ansible.builtin.debug:
+        var: ip_routing.stdout_lines
+      when: ip_routing is defined
+
+    - name: Print current-configuration
+      ansible.builtin.debug:
+        var: current_config.stdout_lines
+      when: current_config is defined

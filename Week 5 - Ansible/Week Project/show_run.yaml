@@ -1,17 +1,29 @@
----
-
-- name: Display current configuration
-  hosts: cisco_ios
+- name: Display Running Configuration on Network Devices
+  hosts: cisco_ios,huawei_vrp
   gather_facts: false
-  connection: network_cli
 
   tasks:
-    - name: Display current configuration
+
+    - name: Show Huawei config
+      community.network.ce_command:
+        commands:
+          - display current-configuration
+      register: ce_output
+      when: ansible_network_os == 'community.network.ce'
+
+    - name: Show Cisco config
       cisco.ios.ios_command:
         commands:
-          - show run
-      register: interface_output
+          - show running-config
+      register: ios_output
+      when: ansible_network_os == 'cisco.ios.ios'
 
-    - name: Show current configuration on screen
+    - name: Print Huawei config
       ansible.builtin.debug:
-        var: interface_output.stdout_lines
+        var: ce_output.stdout_lines
+      when: ce_output is defined
+
+    - name: Print Cisco config
+      ansible.builtin.debug:
+        var: ios_output.stdout_lines
+      when: ios_output is defined

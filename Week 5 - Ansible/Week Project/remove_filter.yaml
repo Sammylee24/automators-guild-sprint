@@ -1,0 +1,67 @@
+- name: Remove BGP filter from ISP2 core routers
+  hosts: C1,C2
+  gather_facts: false
+
+  tasks:
+
+    - name: Show initial BGP configuration
+      cisco.ios.ios_command:
+        commands:
+          - show run | section bgp
+      register: old_bgp_config
+
+    - name: Check OLD BGP routing table
+      cisco.ios.ios_command:
+        commands:
+          - show ip bgp all
+      register: old_bgp_routes
+
+    - name: Modify the filter on C1
+      cisco.ios.ios_config:
+        lines:
+          - no neighbor 172.16.102.0 route-map FILTER_FROM_ISP1 in
+          - no neighbor 172.16.102.4 route-map FILTER_FROM_ISP1 in
+        parents: address-family ipv4 vrf ISP1_PEERING
+        before: router bgp 65001
+      when: inventory_hostname == "C1"
+
+    - name: Modify the filter on C2
+      cisco.ios.ios_config:
+        lines:
+          - no neighbor 172.16.102.2 route-map FILTER_FROM_ISP1 in
+          - no neighbor 172.16.102.6 route-map FILTER_FROM_ISP1 in
+        parents: address-family ipv4 vrf ISP1_PEERING
+        before: router bgp 65001
+      when: inventory_hostname == "C2"
+
+    - name: Show new BGP configuration
+      cisco.ios.ios_command:
+        commands:
+          - show run | section bgp
+      register: new_bgp_config
+
+    - name: Check NEW BGP routing table
+      cisco.ios.ios_command:
+        commands:
+          - show ip bgp all
+      register: new_bgp_routes
+
+    - name: Display OLD BGP configuration
+      ansible.builtin.debug:
+        var: old_bgp_config.stdout_lines
+      when: old_bgp_config is defined
+
+    - name: Print OLD BGP routing table
+      ansible.builtin.debug:
+        var: old_bgp_routes.stdout_lines
+      when: old_bgp_routes is defined
+
+    - name: Display NEW BGP configuration
+      ansible.builtin.debug:
+        var: new_bgp_config.stdout_lines
+      when: new_bgp_config is defined
+
+    - name: Print NEW BGP routing table
+      ansible.builtin.debug:
+        var: new_bgp_routes.stdout_lines
+      when: new_bgp_routes is defined
