@@ -1,5 +1,5 @@
 - name: Create and advertise networks for remote sites
-  hosts: Remote_Site1, Satellite_Site1
+  hosts: cisco_ios:&remote_sites
   gather_facts: false
 
   tasks:
@@ -12,7 +12,7 @@
       loop: "{{ range(1, 31) | list }}"
       when: inventory_hostname == "Remote_Site1"
 
-    - name: Create networks for Remote_Site1
+    - name: Create networks for Satellite_Site1
       cisco.ios.ios_config:
         lines:
           - ip address 20.0.9.{{ item }} 255.255.255.255
@@ -21,7 +21,7 @@
       loop: "{{ range(2, 31) | list }}"
       when: inventory_hostname == "Satellite_Site1"
 
-    - name: Advertise Remote_Site1 networks
+    - name: Advertise Satellite_Site1 networks
       cisco.ios.ios_config:
         lines:
           - network 20.0.9.{{ item }} 0.0.0.0
@@ -29,6 +29,60 @@
           - router eigrp 1
       loop: "{{ range(2, 31) | list }}"
       when: inventory_hostname == "Satellite_Site1"
+
+    - name: Create networks for Satellite_Site2
+      cisco.ios.ios_config:
+        lines:
+          - ip address 20.0.10.{{ item }} 255.255.255.255
+        parents:
+          - interface Loopback {{ item }}
+      loop: "{{ range(2, 31) | list }}"
+      when: inventory_hostname == "Satellite_Site2"
+
+    - name: Advertise Satellite_Site2 networks
+      cisco.ios.ios_config:
+        lines:
+          - network 20.0.10.{{ item }} 0.0.0.0
+        parents:
+          - router eigrp 1
+      loop: "{{ range(2, 31) | list }}"
+      when: inventory_hostname == "Satellite_Site2"
+
+    - name: Create networks for Satellite_Site3
+      cisco.ios.ios_config:
+        lines:
+          - ip address 20.0.16.{{ item }} 255.255.255.255
+        parents:
+          - interface Loopback {{ item }}
+      loop: "{{ range(2, 31) | list }}"
+      when: inventory_hostname == "Satellite_Site3"
+
+    - name: Advertise Satellite_Site3 networks
+      cisco.ios.ios_config:
+        lines:
+          - network 20.0.16.{{ item }} 0.0.0.0
+        parents:
+          - router eigrp 1
+      loop: "{{ range(2, 31) | list }}"
+      when: inventory_hostname == "Satellite_Site3"
+
+    - name: Create networks for Remote_Site2
+      cisco.ios.ios_config:
+        lines:
+          - ip address 20.0.18.{{ item }} 255.255.255.255
+        parents:
+          - interface Loopback {{ item }}
+      loop: "{{ range(2, 31) | list }}"
+      when: inventory_hostname == "Remote_Site2"
+
+    - name: Advertise Remote_Site2 networks
+      cisco.ios.ios_config:
+        lines:
+          - network 20.0.18.{{ item }} 0.0.0.0
+        parents:
+          - router eigrp 300
+      loop: "{{ range(2, 31) | list }}"
+      when: inventory_hostname == "Remote_Site2"
 
     - name: Show current Loopback configuration
       cisco.ios.ios_command:
