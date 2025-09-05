@@ -1,0 +1,62 @@
+- name: Create and advertise networks for remote sites
+  hosts: Remote_Site1, Satellite_Site1
+  gather_facts: false
+
+  tasks:
+    - name: Create and advertise networks for Remote_Site1
+      cisco.ios.ios_config:
+        lines:
+          - ip address 20.0.8.{{ item }} 255.255.255.255
+          - ip ospf 1 area 1
+        parents: interface Loopback {{ item }}
+      loop: "{{ range(1, 31) | list }}"
+      when: inventory_hostname == "Remote_Site1"
+
+    - name: Create networks for Remote_Site1
+      cisco.ios.ios_config:
+        lines:
+          - ip address 20.0.9.{{ item }} 255.255.255.255
+        parents:
+          - interface Loopback {{ item }}
+      loop: "{{ range(2, 31) | list }}"
+      when: inventory_hostname == "Satellite_Site1"
+
+    - name: Advertise Remote_Site1 networks
+      cisco.ios.ios_config:
+        lines:
+          - network 20.0.9.{{ item }} 0.0.0.0
+        parents:
+          - router eigrp 1
+      loop: "{{ range(2, 31) | list }}"
+      when: inventory_hostname == "Satellite_Site1"
+
+    - name: Show current Loopback configuration
+      cisco.ios.ios_command:
+        commands: show running-config | section Loopback
+      register: loopback_output
+
+    - name: Check eigrp config
+      cisco.ios.ios_command:
+        commands:
+          - show run | section eigrp
+      register: eigrp_output
+
+    - name: Save output
+      cisco.ios.ios_command:
+        commands: write memory
+      register: save_output
+
+    - name: Display loopback configuration
+      ansible.builtin.debug:
+        var: loopback_output.stdout_lines
+      when: loopback_output is defined
+
+    - name: Display eigrp configuration
+      ansible.builtin.debug:
+        var: eigrp_output.stdout_lines
+      when: eigrp_output is defined
+
+    - name: Display save output
+      ansible.builtin.debug:
+        var: save_output.stdout_lines
+      when: save_output is defined
