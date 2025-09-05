@@ -1,5 +1,5 @@
 - name: Remove BGP filter from ISP2 core routers
-  hosts: C1,C2
+  hosts: isp2:&core_routers
   gather_facts: false
 
   tasks:
@@ -65,3 +65,13 @@
       ansible.builtin.debug:
         var: new_bgp_routes.stdout_lines
       when: new_bgp_routes is defined
+
+    - name: Save configuration
+      cisco.ios.ios_command:
+        commands: write memory
+      register: save_output
+
+    - name: Display saved info
+      ansible.builtin.debug:
+        var: save_output.stdout_lines
+      when: save_output is defined
