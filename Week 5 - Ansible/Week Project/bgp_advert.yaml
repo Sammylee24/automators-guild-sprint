@@ -1,0 +1,32 @@
+- name: Advertise network into BGP
+  hosts: HQ1_R1, HQ1_R2
+  gather_facts: false
+
+  tasks:
+    - name: Advertise networks 8 from OSPF into BGP
+      cisco.ios.ios_config:
+        lines:
+          - network 20.0.8.{{ item }} mask 255.255.255.255
+        parents: router bgp 100
+      loop: "{{ range(1, 31) | list }}"
+
+    - name: Advertise networks 9 from OSPF into BGP
+      cisco.ios.ios_config:
+        lines:
+          - network 20.0.9.{{ item }} mask 255.255.255.255
+        parents: router bgp 100
+      loop: "{{ range(2, 31) | list }}"
+
+    - name: Save configuration
+      cisco.ios.ios_command:
+        commands: write memory
+
+    - name: Show BGP configuration
+      cisco.ios.ios_command:
+        commands: show run | section bgp
+      register: bgp_output
+
+    - name: Display BGP output
+      ansible.builtin.debug:
+        var: bgp_output.stdout_lines
+      when: bgp_output is defined
