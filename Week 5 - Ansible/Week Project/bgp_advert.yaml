@@ -1,5 +1,5 @@
 - name: Advertise network into BGP
-  hosts: HQ1_R1, HQ1_R2
+  hosts: HQ1_R1, HQ1_R2, E4
   gather_facts: false
 
   tasks:
@@ -7,15 +7,53 @@
       cisco.ios.ios_config:
         lines:
           - network 20.0.8.{{ item }} mask 255.255.255.255
+          - aggregate-address 20.0.8.0 255.255.255.224 summary-only
         parents: router bgp 100
       loop: "{{ range(1, 31) | list }}"
+      when: inventory_hostname in ['HQ1_R1', 'HQ1_R2']
 
     - name: Advertise networks 9 from OSPF into BGP
       cisco.ios.ios_config:
         lines:
           - network 20.0.9.{{ item }} mask 255.255.255.255
+          - aggregate-address 20.0.9.0 255.255.255.224 summary-only
         parents: router bgp 100
       loop: "{{ range(2, 31) | list }}"
+      when: inventory_hostname in ['HQ1_R1', 'HQ1_R2']
+
+    - name: Advertise networks 10 from OSPF into BGP
+      cisco.ios.ios_config:
+        lines:
+          - network 20.0.10.{{ item }} mask 255.255.255.255
+          - aggregate-address 20.0.10.0 255.255.255.224 summary-only
+        parents: router bgp 100
+      loop: "{{ range(2, 31) | list }}"
+      when: inventory_hostname in ['HQ1_R1', 'HQ1_R2']
+
+    - name: Advertise networks 16 from OSPF into BGP
+      cisco.ios.ios_config:
+        lines:
+          - network 20.0.16.{{ item }} mask 255.255.255.255
+          - aggregate-address 20.0.16.0 255.255.255.224 summary-only
+        parents: router bgp 100
+      loop: "{{ range(2, 31) | list }}"
+      when: inventory_hostname in ['HQ1_R1', 'HQ1_R2']
+
+    - name: Modify prefix list to advertise networks 18 from EIGRP into BGP
+      cisco.ios.ios_config:
+        lines:
+          - ip prefix-list REMOTE_CORP_NETWORK permit 20.0.18.{{ item }}/32
+      loop: "{{ range(2, 31) | list }}"
+      when: inventory_hostname == "E4"
+
+    - name: Summarize routes for E4
+      cisco.ios.ios_config:
+        lines:
+          - aggregate-address 20.0.18.0 255.255.255.224 summary-only
+        parents: address-family ipv4 vrf REMOTE_CORP
+        before:
+          - router bgp 65001
+      when: inventory_hostname == "E4"
 
     - name: Save configuration
       cisco.ios.ios_command:
@@ -26,7 +64,18 @@
         commands: show run | section bgp
       register: bgp_output
 
+    - name: Show IP prefix configuration
+      cisco.ios.ios_command:
+        commands:
+          - show ip prefix-list REMOTE_CORP_NETWORK
+      register: prefix_output
+
     - name: Display BGP output
       ansible.builtin.debug:
         var: bgp_output.stdout_lines
       when: bgp_output is defined
+
+    - name: Display IP prefix configuration on screen
+      ansible.builtin.debug:
+        var: prefix_output.stdout_lines
+      when: prefix_output is defined
