@@ -27,6 +27,22 @@
           - route-map DENY_SATELLITES permit 1
       when: inventory_hostname == "R1"
 
+    - name: Create local preference policy on R1
+      cisco.ios.ios_config:
+        lines:
+          - set local-preference 200
+        parents:
+          - route-map PREFER_R1 permit 0
+      when: inventory_hostname == "R1"
+
+    - name: Bind local preference policy on R1 to BGP group
+      cisco.ios.ios_config:
+        lines:
+          - neighbor ibgp route-map PREFER_R1 out
+        parents:
+          - router bgp 65000
+      when: inventory_hostname == "R1"
+
     - name: Create Route policy for R2
       cisco.ios.ios_config:
         lines:
