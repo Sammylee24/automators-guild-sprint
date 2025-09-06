@@ -1,0 +1,71 @@
+- name: Filter warehouse routes from reaching ISP1
+  hosts: C1,C2
+  gather_facts: false
+
+  tasks:
+
+    - name: Create prefix list for warehouse routes
+      cisco.ios.ios_config:
+        lines:
+          ip prefix-list FILTER_WAREHOUSE permit 20.0.0.19/32
+
+    - name: Create route policy on C1
+      cisco.ios.ios_config:
+        lines:
+          match ip address prefix-list FILTER_WAREHOUSE
+        parents: route-map DENY_WAREHOUSE deny 0
+      when: inventory_hostname == "C1"
+
+    - name: Create permit policy for C1
+      cisco.ios.ios_config:
+        lines:
+          - route-map DENY_WAREHOUSE permit 1
+      when: inventory_hostname == "C1"
+
+    - name: Create route policy on C2
+      cisco.ios.ios_config:
+        lines:
+          - match ip address prefix-list FILTER_WAREHOUSE
+        parents: route-map DENY_WAREHOUSE_PROHIBIT_C2 deny 0
+      when: inventory_hostname == "C2"
+
+    - name: Create AS-PATH map
+      cisco.ios.ios_config:
+        lines:
+          - set as-path prepend 65000 65000
+        parents: route-map DENY_WAREHOUSE permit 1
+      when: inventory_hostname == "C2"
+
+    - name: Apply policy for C1 neighbor
+      cisco.ios.ios_config:
+        lines:
+          - neighbor 172.16.102.0 route-map DENY_WAREHOUSE out
+          - neighbor 172.16.102.4 route-map DENY_WAREHOUSE out
+        parents:
+          - address-family ipv4 vrf ISP1_PEERING
+        before: router bgp 65001
+      when: inventory_hostname == "C1"
+
+    - name: Apply policy for C2 neighbor
+      cisco.ios.ios_config:
+        lines:
+          - neighbor 172.16.102.2 route-map DENY_WAREHOUSE_PROHIBIT_C2 out
+          - neighbor 172.16.102.6 route-map DENY_WAREHOUSE_PROHIBIT_C2 out
+        parents:
+          - address-family ipv4 vrf ISP1_PEERING
+        before: router bgp 65001
+      when: inventory_hostname == "C2"
+
+    - name: Show current-configuration
+      cisco.ios.ios_command:
+        commands: show running-config
+      register: config_output
+
+    - name: Display output to screen
+      ansible.builtin.debug:
+        var: config_output.stdout_lines
+      when: config_output is defined
+
+    - name: Save config
+      cisco.ios.ios_command:
+        commands: write memory
