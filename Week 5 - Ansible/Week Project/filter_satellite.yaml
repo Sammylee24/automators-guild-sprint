@@ -1,0 +1,76 @@
+- name: Filter Satellite Sites 1 and 2 routes
+  hosts: R1,R2
+  gather_facts: false
+
+  tasks:
+
+    - name: Create Prefix list to specify routes
+      cisco.ios.ios_config:
+        lines:
+          - ip prefix-list FILTER_SATELLITES permit 20.0.0.9/32
+          - ip prefix-list FILTER_SATELLITES permit 20.0.0.10/32
+          - ip prefix-list FILTER_SATELLITES permit 20.0.9.0/27
+          - ip prefix-list FILTER_SATELLITES permit 20.0.10.0/27
+          - ip prefix-list FILTER_SATELLITES permit 193.0.0.1/32
+          - ip prefix-list FILTER_SATELLITES permit 193.0.0.2/32
+
+    - name: Create Route policy to deny specified routes for R1
+      cisco.ios.ios_config:
+        lines:
+          - match ip address prefix-list FILTER_SATELLITES
+        parents: route-map DENY_SATELLITES deny 0
+      when: inventory_hostname == "R1"
+
+    - name: Create permit map for R1
+      cisco.ios.ios_config:
+        lines:
+          - route-map DENY_SATELLITES permit 1
+      when: inventory_hostname == "R1"
+
+    - name: Create Route policy for R2
+      cisco.ios.ios_config:
+        lines:
+          - match ip address prefix-list FILTER_SATELLITES
+        parents:
+          - route-map DENY_SATELLITES_PROHIBIT_R2 deny 0
+      when: inventory_hostname == "R2"
+
+    - name: Create AS-PATH map for R2
+      cisco.ios.ios_config:
+        lines:
+          - set as-path prepend 65000 65000
+        parents:
+          - route-map DENY_SATELLITES_PROHIBIT_R2 permit 1
+      when: inventory_hostname == "R2"
+
+    - name: Apply policy for R1 neighbor
+      cisco.ios.ios_config:
+        lines:
+          - neighbor 172.16.102.1 route-map DENY_SATELLITES out
+          - neighbor 172.16.102.3 route-map DENY_SATELLITES out
+        parents:
+          - router bgp 65000
+      when: inventory_hostname == "R1"
+
+    - name: Apply policy for R2 neighbor
+      cisco.ios.ios_config:
+        lines:
+          - neighbor 172.16.102.5 route-map DENY_SATELLITES_PROHIBIT_R2 out
+          - neighbor 172.16.102.7 route-map DENY_SATELLITES_PROHIBIT_R2 out
+        parents:
+          - router bgp 65000
+      when: inventory_hostname == "R2"
+
+    - name: Show current-configuration
+      cisco.ios.ios_command:
+        commands: show running-config
+      register: config_output
+
+    - name: Display output to screen
+      ansible.builtin.debug:
+        var: config_output.stdout_lines
+      when: config_output is defined
+
+    - name: Save config
+      cisco.ios.ios_command:
+        commands: write memory
