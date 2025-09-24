@@ -1,0 +1,167 @@
+# import relevant modules
+import yaml
+from netmiko import ConnectHandler
+import os
+import difflib
+import shutil
+from datetime import datetime
+import subprocess
+import re
+
+import re
+
+def clean_config_lines(lines):
+    """
+    Remove volatile lines from configs (Cisco, Mikrotik, Juniper…)
+    so diffs only show real changes.
+    """
+    cleaned = []
+    for line in lines:
+        # Cisco
+        if re.match(r"^Current configuration.*bytes", line):
+            continue
+        if re.match(r"^! Last configuration change.*", line):
+            continue
+        if re.match(r"^! NVRAM config last updated.*", line):
+            continue
+        if re.match(r"^Building configuration", line):
+            continue
+
+        # Mikrotik exports start with a timestamp
+        if re.match(r"^# \w{3}/\d{2}/\d{4}", line):
+            continue
+
+        # Juniper last commit timestamp
+        if re.match(r"^## Last commit:.*", line):
+            continue
+
+        cleaned.append(line)
+    return cleaned
+
+def compare_configs(old_file, new_file):
+    """
+    Compare two configuration files and return their diff output.
+    :param old_file: Path to the old config file
+    :param new_file: Path to the new config file
+    :return: String containing the unified diff
+    """
+    try:
+        # Read old file
+        with open(old_file, 'r') as f:
+            old_lines = f.readlines()
+        
+        # Read new file
+        with open(new_file, 'r') as f:
+            new_lines = f.readlines()
+
+        old_clean = clean_config_lines(old_lines)
+        new_clean = clean_config_lines(new_lines)
+
+        # Generate unified diff
+        diff = difflib.unified_diff(
+            old_lines,
+            new_lines,
+            fromfile=old_file,
+            tofile=new_file,
+            lineterm=''  # avoid extra newlines
+        )
+
+        # Join into one string
+        return '\n'.join(diff)
+    except Exception as e:
+        print(f"An error occured while comparing files: {e}")
+
+def commit_changes(filename, hostname, detect_time):
+    """
+    Stage and commit a file to Git with a message containing the hostname.
+    :param filename: Path to the file to commit
+    :param hostname: Device hostname to include in commit message
+    """
+    try:
+        # Stage the file
+        subprocess.run(["git", "add", filename], check=True)
+        # Commit with a custom message
+        commit_message = f"Config change detected on {hostname} at {detect_time}"
+        subprocess.run(["git", "commit", "-m", commit_message], check=True)
+        print(f"Committed {filename} to git with message: '{commit_message}'")
+    except subprocess.CalledProcessError as e:
+        print(f"Git commit failed: {e}")
+
+# Create the configs directory if it doesn't exist
+os.makedirs("configs", exist_ok=True)
+
+# Create the temp directory if it doesn't exist
+os.makedirs("temp", exist_ok=True)
+
+with open('hosts.yaml', 'r') as file:
+    # Convert YAML to Python dictionary
+    data = yaml.safe_load(file)
+
+for device in data['devices']:
+    try:
+        # Connect to device
+        ssh = ConnectHandler(**device)
+        print(f"Connected to {device['host']}")
+        if device['device_type'] == 'cisco_ios':
+            # Enable for Cisco devices
+            ssh.enable()
+
+        # Get running-configuration
+        if device['device_type'] == 'cisco_ios':
+            output = ssh.send_command('show running-config')
+            # Extract device hostname
+            raw_hostname = ssh.send_command('show run | include hostname')
+            hostname = raw_hostname.replace("hostname", "").strip()
+        elif device['device_type'] == 'huawei_vrp':
+            output = ssh.send_command('display current-configuration')
+            # Extract device hostname
+            raw_hostname = ssh.send_command('display current-configuration | include sysname')
+            hostname = raw_hostname.replace("sysname", "").strip()
+
+        elif device['device_type'] == 'juniper_junos':
+            output = ssh.send_command('show configuration')
+            # Extract device hostname
+            raw_hostname = ssh.send_command('show configuration | match host-name')
+            hostname = raw_hostname.replace("host-name", "").strip().replace(";", "").strip()
+
+        elif device['device_type'] == 'mikrotik_routeros':
+            output = ssh.send_command('/export')
+            # Extract device hostname
+            raw_value = f"[{device['username']}@"
+            hostname = ssh.find_prompt().replace("] >", "").strip().replace(raw_value, "").strip()
+        
+        # Set filename and directory
+        config_file = f"configs/{hostname}.cfg"
+
+        # Create a timestamp for the temp file (YYYYMMDD-HHMMSS)
+        timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+        temp_file = f"temp/{hostname}_{timestamp}.cfg"
+
+        # Save running-config to file
+        with open(temp_file, 'w') as f:
+            f.write(output)
+
+        print(f"Saved running-config to {config_file}")
+
+        if os.path.exists(config_file):
+            diff_output = compare_configs(config_file, temp_file)
+            if diff_output:
+                print("CHANGE DETECTED!")
+                print(diff_output)
+                shutil.copy(temp_file, config_file)
+                print(f"Updated {config_file} for {hostname}")
+                
+                # Commit changes to git
+                commit_changes(config_file, hostname, timestamp)
+            else:
+                print("No changes detected")
+        else:
+            # First time: just save directly
+            shutil.copy(temp_file, config_file)
+            print(f"First run – saved initial backup to {config_file}")
+
+        # Disconnect from device
+        ssh.disconnect()
+
+    except Exception as e:
+        print(f"Failed to connect to {device['host']}: {e}")
