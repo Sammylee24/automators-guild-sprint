@@ -10,6 +10,33 @@ import re
 from functools import wraps
 import traceback
 
+CONFIG_DIR = "configs"
+TEMP_DIR = "temp"
+DATE_FORMAT = "%Y%m%d-%H%M%S"
+
+# Vendor-Specific Command Mapping
+COMMANDS = {
+    'cisco_ios': {
+        'running_config': 'show running-config',
+        'hostname': 'show running-config | include hostname',
+        'to_find': 'hostname'
+    },
+    'huawei_vrp': {
+        'running_config': 'display current-configuration',
+        'hostname': 'display current-configuration | include sysname',
+        'to_find': 'sysname'
+    },
+    'juniper_junos': {
+        'running_config': 'show configuration',
+        'hostname': 'show configuration | match host-name',
+        'to_find': 'host-name'
+    },
+    'mikrotik_routeros': {
+        'running_config': '/export'
+    }
+    # Other vendors here later
+}
+
 def safe_run(default_return=None):
     """
     Decorator to catch and print exceptions for a function,
@@ -33,28 +60,6 @@ def get_device_config(device):
     This connects to device and return
     the running configuration
     """
-    # Vendor-Specific Command Mapping
-    COMMANDS = {
-        'cisco_ios': {
-            'running_config': 'show running-config',
-            'hostname': 'show running-config | include hostname',
-            'to_find': 'hostname'
-        },
-        'huawei_vrp': {
-            'running_config': 'display current-configuration',
-            'hostname': 'display current-configuration | include sysname',
-            'to_find': 'sysname'
-        },
-        'juniper_junos': {
-            'running_config': 'show configuration',
-            'hostname': 'show configuration | match host-name',
-            'to_find': 'host-name'
-        },
-        'mikrotik_routeros': {
-            'running_config': '/export'
-        }
-        # Other vendors here later
-    }
     # Connect to device
     ssh = ConnectHandler(**device)
     print(f"Connected to {device['host']}")
@@ -83,10 +88,10 @@ def save_temp_config(hostname, running_config):
     returns the path
     """
     # Set filename and directory
-    config_file = f"configs/{hostname}.cfg"
+    config_file = f"{CONFIG_DIR}/{hostname}.cfg"
     # Create a timestamp for the temp file (YYYYMMDD-HHMMSS)
-    timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
-    temp_file = f"temp/{hostname}_{timestamp}.cfg"
+    timestamp = datetime.now().strftime(DATE_FORMAT)
+    temp_file = f"{TEMP_DIR}/{hostname}_{timestamp}.cfg"
 
     # Save running-config to file
     with open(temp_file, 'w') as f:
@@ -185,8 +190,8 @@ def disconnect_device(ssh):
     
 def main():
     # Create the directories if they do not exist
-    os.makedirs("configs", exist_ok=True)
-    os.makedirs("temp", exist_ok=True)
+    os.makedirs(CONFIG_DIR, exist_ok=True)
+    os.makedirs(TEMP_DIR, exist_ok=True)
 
     with open('hosts.yaml', 'r') as file:
         # Convert YAML to Python dictionary
