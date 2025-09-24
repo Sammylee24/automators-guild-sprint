@@ -13,6 +13,28 @@ def get_device_config(device):
     This connects to device and return
     the running configuration
     """
+    # Vendor-Specific Command Mapping
+    COMMANDS = {
+        'cisco_ios': {
+            'running_config': 'show running-config',
+            'hostname': 'show running-config | include hostname',
+            'to_find': 'hostname'
+        },
+        'huawei_vrp': {
+            'running_config': 'display current-configuration',
+            'hostname': 'display current-configuration | include sysname',
+            'to_find': 'sysname'
+        },
+        'juniper_junos': {
+            'running_config': 'show configuration',
+            'hostname': 'show configuration | match host-name',
+            'to_find': 'host-name'
+        },
+        'mikrotik_routeros': {
+            'running_config': '/export'
+        }
+        # Other vendors here later
+    }
     try:
         # Connect to device
         ssh = ConnectHandler(**device)
@@ -20,28 +42,17 @@ def get_device_config(device):
         if device['device_type'] == 'cisco_ios':
             # Enable for Cisco devices
             ssh.enable()
-
-            # Get running-configuration
-        if device['device_type'] == 'cisco_ios':
-            running_config = ssh.send_command('show running-config')
-            # Extract device hostname
-            raw_hostname = ssh.send_command('show run | include hostname')
-            hostname = raw_hostname.replace("hostname", "").strip()
-        elif device['device_type'] == 'huawei_vrp':
-            running_config = ssh.send_command('display current-configuration')
-            # Extract device hostname
-            raw_hostname = ssh.send_command('display current-configuration | include sysname')
-            hostname = raw_hostname.replace("sysname", "").strip()
-
-        elif device['device_type'] == 'juniper_junos':
-            running_config = ssh.send_command('show configuration')
-            # Extract device hostname
-            raw_hostname = ssh.send_command('show configuration | match host-name')
-            hostname = raw_hostname.replace("host-name", "").strip().replace(";", "").strip()
-
-        elif device['device_type'] == 'mikrotik_routeros':
-            running_config = ssh.send_command('/export')
-            # Extract device hostname
+        
+        # Get running-configuration
+        device_type = device.get('device_type', 'unknown')
+        run_cmd = COMMANDS.get(device_type, {}).get('running_config')
+        running_config = ssh.send_command(run_cmd)
+        # Extract device hostname
+        if device_type != 'mikrotik_routeros':
+            raw_hostname = ssh.send_command(COMMANDS.get(device_type, {}).get('hostname'))
+            to_find = COMMANDS.get(device_type, {}).get('to_find')
+            hostname = raw_hostname.replace(to_find, "").strip().replace(";", "").strip()
+        else:
             raw_value = f"[{device['username']}@"
             hostname = ssh.find_prompt().replace("] >", "").strip().replace(raw_value, "").strip()
         return (hostname, running_config, ssh)
@@ -177,19 +188,23 @@ def disconnect_device(ssh):
     except Exception as e:
         print(e)
 
-# Create the directories if they do not exist
-os.makedirs("configs", exist_ok=True)
-os.makedirs("temp", exist_ok=True)
+def main():
+    # Create the directories if they do not exist
+    os.makedirs("configs", exist_ok=True)
+    os.makedirs("temp", exist_ok=True)
 
-with open('hosts.yaml', 'r') as file:
-    # Convert YAML to Python dictionary
-    data = yaml.safe_load(file)
+    with open('hosts.yaml', 'r') as file:
+        # Convert YAML to Python dictionary
+        data = yaml.safe_load(file)
 
-for device in data['devices']:
-    try:
-        hostname, running_config, ssh = get_device_config(device)
-        temp_file, config_file, timestamp = save_temp_config(hostname, running_config)
-        update_and_commit(config_file, temp_file, hostname, timestamp)
-        disconnect_device(ssh)
-    except Exception as e:
-        print(f"Failed to connect to {device['host']}: {e}")
+    for device in data['devices']:
+        try:
+            hostname, running_config, ssh = get_device_config(device)
+            temp_file, config_file, timestamp = save_temp_config(hostname, running_config)
+            update_and_commit(config_file, temp_file, hostname, timestamp)
+            disconnect_device(ssh)
+        except Exception as e:
+            print(f"Failed to connect to {device['host']}: {e}")
+
+if __name__ == "__main__":
+    main()
