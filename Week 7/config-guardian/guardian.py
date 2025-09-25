@@ -60,6 +60,15 @@ def safe_run(default_return=None):
         return wrapper
     return decorator
 
+class TqdmLoggingHandler(logging.Handler):
+    def emit(self, record):
+        try:
+            msg = self.format(record)
+            tqdm.write(msg)  # writes above the progress bar
+            self.flush()
+        except Exception:
+            self.handleError(record)
+
 def setup_logger(
     name="config_guardian",
     log_file=f"{LOGS_DIR}/config_guardian_{datetime.now().strftime(DATE_FORMAT)}.log",
@@ -67,26 +76,23 @@ def setup_logger(
     max_bytes=5_000_000,
     backup_count=5
 ):
-    """
-    Create and configure a logger with rotating file + console.
-    Call once at startup and reuse the returned logger.
-    """
     logger = logging.getLogger(name)
     logger.setLevel(level)
 
-    # avoid adding handlers twice if called again
     if not logger.handlers:
         fmt = logging.Formatter("%(asctime)s %(levelname)-8s %(message)s")
 
+        # rotating file handler
         fh = RotatingFileHandler(log_file, maxBytes=max_bytes, backupCount=backup_count)
         fh.setFormatter(fmt)
         logger.addHandler(fh)
 
-        ch = logging.StreamHandler()
+        # console handler replaced with tqdm-safe handler
+        ch = TqdmLoggingHandler()
         ch.setFormatter(fmt)
         logger.addHandler(ch)
-    logger.info(f"\nLog file is saving to {log_file}\n")
 
+    logger.info(f"\nLog file is saving to {log_file}\n")
     return logger
 
 @safe_run(default_return=(None, None, None))
