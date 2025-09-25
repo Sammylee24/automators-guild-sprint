@@ -1,0 +1,395 @@
+2025-09-25 14:23:40,604 INFO     
+Log file is saving to logs/config_guardian_20250925-142340.log
+
+2025-09-25 14:23:40,640 INFO     
+Log file is saving to logs/config_guardian_20250925-142340.log
+
+2025-09-25 14:23:43,928 INFO     Connected to 10.0.1.11
+2025-09-25 14:23:43,937 INFO     Connected to 10.0.1.2
+2025-09-25 14:23:44,025 INFO     Connected to 10.0.1.1
+2025-09-25 14:23:44,053 INFO     Connected to 10.0.0.1
+2025-09-25 14:23:44,059 INFO     Connected to 10.0.0.5
+2025-09-25 14:23:44,172 INFO     Connected to 10.0.0.2
+2025-09-25 14:23:44,190 INFO     Connected to 10.0.0.4
+2025-09-25 14:23:44,239 INFO     Connected to 10.0.0.6
+2025-09-25 14:23:44,254 INFO     Connected to 10.0.1.12
+2025-09-25 14:23:44,524 INFO     Connected to 10.0.0.3
+2025-09-25 14:23:47,569 INFO     Saved running-config temporarily to temp/C1_20250925-142347.cfg
+2025-09-25 14:23:47,569 INFO     Saved running-config temporarily to temp/C2_20250925-142347.cfg
+2025-09-25 14:23:47,576 INFO     First run – saved initial backup to configs/C1.cfg
+2025-09-25 14:23:47,576 INFO     First run – saved initial backup to configs/C2.cfg
+2025-09-25 14:23:47,698 INFO     Saved running-config temporarily to temp/R1_20250925-142347.cfg
+2025-09-25 14:23:47,700 INFO     First run – saved initial backup to configs/R1.cfg
+2025-09-25 14:23:47,743 INFO     Saved running-config temporarily to temp/D1_20250925-142347.cfg
+2025-09-25 14:23:47,746 INFO     First run – saved initial backup to configs/D1.cfg
+2025-09-25 14:23:48,668 INFO     Saved running-config temporarily to temp/R4_20250925-142348.cfg
+2025-09-25 14:23:48,669 INFO     Saved running-config temporarily to temp/R3_20250925-142348.cfg
+2025-09-25 14:23:48,669 INFO     Saved running-config temporarily to temp/D2_20250925-142348.cfg
+2025-09-25 14:23:48,676 INFO     First run – saved initial backup to configs/R3.cfg
+2025-09-25 14:23:48,676 INFO     First run – saved initial backup to configs/R4.cfg
+2025-09-25 14:23:48,679 INFO     First run – saved initial backup to configs/D2.cfg
+2025-09-25 14:23:48,860 INFO     Saved running-config temporarily to temp/R6_20250925-142348.cfg
+2025-09-25 14:23:48,860 INFO     Saved running-config temporarily to temp/R2_20250925-142348.cfg
+2025-09-25 14:23:48,865 INFO     First run – saved initial backup to configs/R6.cfg
+2025-09-25 14:23:48,866 INFO     First run – saved initial backup to configs/R2.cfg
+2025-09-25 14:23:48,886 INFO     Saved running-config temporarily to temp/R5_20250925-142348.cfg
+2025-09-25 14:23:48,892 INFO     First run – saved initial backup to configs/R5.cfg
+2025-09-25 14:23:49,511 INFO     Connected to 10.0.1.22
+2025-09-25 14:23:49,524 INFO     Connected to 10.0.1.21
+2025-09-25 14:23:50,056 INFO     Connected to 10.0.1.101
+2025-09-25 14:23:50,056 INFO     Connected to 10.0.1.102
+2025-09-25 14:23:50,849 INFO     Connected to 20.0.0.8
+2025-09-25 14:23:51,198 INFO     Connected to 10.0.1.201
+2025-09-25 14:23:51,253 INFO     Connected to 20.0.0.9
+2025-09-25 14:23:51,290 INFO     Connected to 10.0.1.202
+2025-09-25 14:23:52,362 INFO     Saved running-config temporarily to temp/D4_20250925-142352.cfg
+2025-09-25 14:23:52,384 INFO     First run – saved initial backup to configs/D4.cfg
+2025-09-25 14:23:53,297 INFO     Saved running-config temporarily to temp/D3_20250925-142353.cfg
+2025-09-25 14:23:53,298 INFO     First run – saved initial backup to configs/D3.cfg
+2025-09-25 14:23:53,812 INFO     Saved running-config temporarily to temp/E2_20250925-142353.cfg
+2025-09-25 14:23:53,816 INFO     First run – saved initial backup to configs/E2.cfg
+2025-09-25 14:23:53,915 INFO     Saved running-config temporarily to temp/E1_20250925-142353.cfg
+2025-09-25 14:23:53,920 INFO     First run – saved initial backup to configs/E1.cfg
+2025-09-25 14:23:54,953 INFO     Saved running-config temporarily to temp/E3_20250925-142354.cfg
+2025-09-25 14:23:54,967 INFO     First run – saved initial backup to configs/E3.cfg
+2025-09-25 14:23:55,166 INFO     Saved running-config temporarily to temp/E4_20250925-142355.cfg
+2025-09-25 14:23:55,172 INFO     First run – saved initial backup to configs/E4.cfg
+2025-09-25 14:23:55,840 INFO     Saved running-config temporarily to temp/Remote_Site1_20250925-142355.cfg
+2025-09-25 14:23:55,854 INFO     First run – saved initial backup to configs/Remote_Site1.cfg
+2025-09-25 14:23:56,228 INFO     Connected to 30.0.0.1
+2025-09-25 14:23:57,116 INFO     Connected to 30.0.0.2
+2025-09-25 14:23:57,525 INFO     Saved running-config temporarily to temp/Satellite_Site1_20250925-142357.cfg
+2025-09-25 14:23:57,535 INFO     First run – saved initial backup to configs/Satellite_Site1.cfg
+2025-09-25 14:23:58,902 ERROR    [get_device_config] error
+Traceback (most recent call last):
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 1146, in establish_connection
+    self.remote_conn_pre.connect(**ssh_connect_params)
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\paramiko\client.py", line 386, in connect
+    sock.connect(addr)
+TimeoutError: timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\adeba\automators-guild-sprint\automators-guild-sprint\Week 7\config-guardian\guardian.py", line 60, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adeba\automators-guild-sprint\automators-guild-sprint\Week 7\config-guardian\guardian.py", line 131, in get_device_config
+    ssh = ConnectHandler(**device, global_delay_factor=2)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\ssh_dispatcher.py", line 460, in ConnectHandler
+    return ConnectionClass(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 495, in __init__
+    self._open()
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 500, in _open
+    self.establish_connection()
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 1168, in establish_connection
+    raise NetmikoTimeoutException(msg)
+netmiko.exceptions.NetmikoTimeoutException: TCP connection to device failed.
+
+Common causes of this problem are:
+1. Incorrect hostname or IP address.
+2. Wrong TCP port.
+3. Intermediate firewall blocking access.
+
+Device settings: cisco_ios 20.0.0.10:22
+
+
+2025-09-25 14:23:58,918 ERROR    [get_device_config] error
+Traceback (most recent call last):
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 1146, in establish_connection
+    self.remote_conn_pre.connect(**ssh_connect_params)
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\paramiko\client.py", line 386, in connect
+    sock.connect(addr)
+TimeoutError: timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\adeba\automators-guild-sprint\automators-guild-sprint\Week 7\config-guardian\guardian.py", line 60, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adeba\automators-guild-sprint\automators-guild-sprint\Week 7\config-guardian\guardian.py", line 131, in get_device_config
+    ssh = ConnectHandler(**device, global_delay_factor=2)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\ssh_dispatcher.py", line 460, in ConnectHandler
+    return ConnectionClass(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 495, in __init__
+    self._open()
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 500, in _open
+    self.establish_connection()
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 1168, in establish_connection
+    raise NetmikoTimeoutException(msg)
+netmiko.exceptions.NetmikoTimeoutException: TCP connection to device failed.
+
+Common causes of this problem are:
+1. Incorrect hostname or IP address.
+2. Wrong TCP port.
+3. Intermediate firewall blocking access.
+
+Device settings: cisco_ios 20.0.0.16:22
+
+
+2025-09-25 14:23:58,994 INFO     Skipping 20.0.0.10 because connection/config failed
+2025-09-25 14:23:58,997 INFO     Skipping 20.0.0.16 because connection/config failed
+2025-09-25 14:23:59,852 INFO     Saved running-config temporarily to temp/DC1_Edge_20250925-142359.cfg
+2025-09-25 14:23:59,858 INFO     First run – saved initial backup to configs/DC1_Edge.cfg
+2025-09-25 14:24:00,375 INFO     Connected to 20.0.0.19
+2025-09-25 14:24:00,601 INFO     Saved running-config temporarily to temp/DC1_SW1_20250925-142400.cfg
+2025-09-25 14:24:00,606 INFO     First run – saved initial backup to configs/DC1_SW1.cfg
+2025-09-25 14:24:01,378 INFO     Connected to 20.0.0.1
+2025-09-25 14:24:02,131 INFO     Connected to 20.0.0.2
+2025-09-25 14:24:02,443 ERROR    [get_device_config] error
+Traceback (most recent call last):
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 1146, in establish_connection
+    self.remote_conn_pre.connect(**ssh_connect_params)
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\paramiko\client.py", line 386, in connect
+    sock.connect(addr)
+TimeoutError: timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\adeba\automators-guild-sprint\automators-guild-sprint\Week 7\config-guardian\guardian.py", line 60, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adeba\automators-guild-sprint\automators-guild-sprint\Week 7\config-guardian\guardian.py", line 131, in get_device_config
+    ssh = ConnectHandler(**device, global_delay_factor=2)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\ssh_dispatcher.py", line 460, in ConnectHandler
+    return ConnectionClass(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 495, in __init__
+    self._open()
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 500, in _open
+    self.establish_connection()
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 1168, in establish_connection
+    raise NetmikoTimeoutException(msg)
+netmiko.exceptions.NetmikoTimeoutException: TCP connection to device failed.
+
+Common causes of this problem are:
+1. Incorrect hostname or IP address.
+2. Wrong TCP port.
+3. Intermediate firewall blocking access.
+
+Device settings: cisco_ios 20.0.0.18:22
+
+
+2025-09-25 14:24:02,448 INFO     Skipping 20.0.0.18 because connection/config failed
+2025-09-25 14:24:02,867 INFO     Connected to 20.0.0.5
+2025-09-25 14:24:03,731 INFO     Saved running-config temporarily to temp/HQ1_R1_20250925-142403.cfg
+2025-09-25 14:24:03,737 INFO     First run – saved initial backup to configs/HQ1_R1.cfg
+2025-09-25 14:24:03,850 ERROR    [get_device_config] error
+Traceback (most recent call last):
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 1146, in establish_connection
+    self.remote_conn_pre.connect(**ssh_connect_params)
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\paramiko\client.py", line 386, in connect
+    sock.connect(addr)
+TimeoutError: timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\adeba\automators-guild-sprint\automators-guild-sprint\Week 7\config-guardian\guardian.py", line 60, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adeba\automators-guild-sprint\automators-guild-sprint\Week 7\config-guardian\guardian.py", line 131, in get_device_config
+    ssh = ConnectHandler(**device, global_delay_factor=2)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\ssh_dispatcher.py", line 460, in ConnectHandler
+    return ConnectionClass(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 495, in __init__
+    self._open()
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 500, in _open
+    self.establish_connection()
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 1168, in establish_connection
+    raise NetmikoTimeoutException(msg)
+netmiko.exceptions.NetmikoTimeoutException: TCP connection to device failed.
+
+Common causes of this problem are:
+1. Incorrect hostname or IP address.
+2. Wrong TCP port.
+3. Intermediate firewall blocking access.
+
+Device settings: juniper_junos 20.0.0.20:22
+
+
+2025-09-25 14:24:03,857 INFO     Skipping 20.0.0.20 because connection/config failed
+2025-09-25 14:24:04,672 INFO     Saved running-config temporarily to temp/HQ1_R2_20250925-142404.cfg
+2025-09-25 14:24:04,679 INFO     First run – saved initial backup to configs/HQ1_R2.cfg
+2025-09-25 14:24:05,033 INFO     Connected to 20.0.0.6
+2025-09-25 14:24:05,765 INFO     Saved running-config temporarily to temp/HQ1_CoreSW_20250925-142405.cfg
+2025-09-25 14:24:05,774 INFO     First run – saved initial backup to configs/HQ1_CoreSW.cfg
+2025-09-25 14:24:05,905 ERROR    [get_device_config] error
+Traceback (most recent call last):
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 1146, in establish_connection
+    self.remote_conn_pre.connect(**ssh_connect_params)
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\paramiko\client.py", line 386, in connect
+    sock.connect(addr)
+TimeoutError: timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\adeba\automators-guild-sprint\automators-guild-sprint\Week 7\config-guardian\guardian.py", line 60, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adeba\automators-guild-sprint\automators-guild-sprint\Week 7\config-guardian\guardian.py", line 131, in get_device_config
+    ssh = ConnectHandler(**device, global_delay_factor=2)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\ssh_dispatcher.py", line 460, in ConnectHandler
+    return ConnectionClass(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 495, in __init__
+    self._open()
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 500, in _open
+    self.establish_connection()
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 1168, in establish_connection
+    raise NetmikoTimeoutException(msg)
+netmiko.exceptions.NetmikoTimeoutException: TCP connection to device failed.
+
+Common causes of this problem are:
+1. Incorrect hostname or IP address.
+2. Wrong TCP port.
+3. Intermediate firewall blocking access.
+
+Device settings: huawei_vrp 30.0.1.3:22
+
+
+2025-09-25 14:24:05,914 INFO     Skipping 30.0.1.3 because connection/config failed
+2025-09-25 14:24:07,590 ERROR    [get_device_config] error
+Traceback (most recent call last):
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 1146, in establish_connection
+    self.remote_conn_pre.connect(**ssh_connect_params)
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\paramiko\client.py", line 386, in connect
+    sock.connect(addr)
+TimeoutError: timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\adeba\automators-guild-sprint\automators-guild-sprint\Week 7\config-guardian\guardian.py", line 60, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adeba\automators-guild-sprint\automators-guild-sprint\Week 7\config-guardian\guardian.py", line 131, in get_device_config
+    ssh = ConnectHandler(**device, global_delay_factor=2)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\ssh_dispatcher.py", line 460, in ConnectHandler
+    return ConnectionClass(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 495, in __init__
+    self._open()
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 500, in _open
+    self.establish_connection()
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 1168, in establish_connection
+    raise NetmikoTimeoutException(msg)
+netmiko.exceptions.NetmikoTimeoutException: TCP connection to device failed.
+
+Common causes of this problem are:
+1. Incorrect hostname or IP address.
+2. Wrong TCP port.
+3. Intermediate firewall blocking access.
+
+Device settings: huawei_vrp 30.0.1.4:22
+
+
+2025-09-25 14:24:07,595 INFO     Skipping 30.0.1.4 because connection/config failed
+2025-09-25 14:24:07,603 INFO     Saved running-config temporarily to temp/HQ1_AccessSW_20250925-142407.cfg
+2025-09-25 14:24:07,609 INFO     First run – saved initial backup to configs/HQ1_AccessSW.cfg
+2025-09-25 14:24:07,688 INFO     Saved running-config temporarily to temp/Warehouse_Site1_20250925-142407.cfg
+2025-09-25 14:24:07,695 INFO     First run – saved initial backup to configs/Warehouse_Site1.cfg
+2025-09-25 14:24:08,578 INFO     Connected to 30.0.2.5
+2025-09-25 14:24:09,013 ERROR    [get_device_config] error
+Traceback (most recent call last):
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 1146, in establish_connection
+    self.remote_conn_pre.connect(**ssh_connect_params)
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\paramiko\client.py", line 386, in connect
+    sock.connect(addr)
+TimeoutError: timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\adeba\automators-guild-sprint\automators-guild-sprint\Week 7\config-guardian\guardian.py", line 60, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adeba\automators-guild-sprint\automators-guild-sprint\Week 7\config-guardian\guardian.py", line 131, in get_device_config
+    ssh = ConnectHandler(**device, global_delay_factor=2)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\ssh_dispatcher.py", line 460, in ConnectHandler
+    return ConnectionClass(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 495, in __init__
+    self._open()
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 500, in _open
+    self.establish_connection()
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 1168, in establish_connection
+    raise NetmikoTimeoutException(msg)
+netmiko.exceptions.NetmikoTimeoutException: TCP connection to device failed.
+
+Common causes of this problem are:
+1. Incorrect hostname or IP address.
+2. Wrong TCP port.
+3. Intermediate firewall blocking access.
+
+Device settings: huawei_vrp 30.0.1.5:22
+
+
+2025-09-25 14:24:09,025 INFO     Skipping 30.0.1.5 because connection/config failed
+2025-09-25 14:24:09,551 INFO     Connected to 30.0.2.13
+2025-09-25 14:24:09,701 INFO     Connected to 30.0.2.17
+2025-09-25 14:24:11,195 INFO     Connected to 20.0.0.17
+2025-09-25 14:24:11,668 INFO     Saved running-config temporarily to temp/HQ2_EdgeSW_20250925-142411.cfg
+2025-09-25 14:24:11,678 INFO     First run – saved initial backup to configs/HQ2_EdgeSW.cfg
+2025-09-25 14:24:12,370 INFO     Connected to 30.0.2.14
+2025-09-25 14:24:12,555 ERROR    [get_device_config] error
+Traceback (most recent call last):
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 1146, in establish_connection
+    self.remote_conn_pre.connect(**ssh_connect_params)
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\paramiko\client.py", line 457, in connect
+    server_key = t.get_remote_server_key()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\paramiko\transport.py", line 953, in get_remote_server_key
+    raise SSHException("No existing session")
+paramiko.ssh_exception.SSHException: No existing session
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\adeba\automators-guild-sprint\automators-guild-sprint\Week 7\config-guardian\guardian.py", line 60, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adeba\automators-guild-sprint\automators-guild-sprint\Week 7\config-guardian\guardian.py", line 131, in get_device_config
+    ssh = ConnectHandler(**device, global_delay_factor=2)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\ssh_dispatcher.py", line 460, in ConnectHandler
+    return ConnectionClass(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 495, in __init__
+    self._open()
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 500, in _open
+    self.establish_connection()
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 1191, in establish_connection
+    raise NetmikoTimeoutException(msg)
+netmiko.exceptions.NetmikoTimeoutException: Paramiko: 'No existing session' error: try increasing 'conn_timeout' to 15 seconds or larger.
+2025-09-25 14:24:12,601 INFO     Skipping 30.0.1.2 because connection/config failed
+2025-09-25 14:24:14,021 INFO     Saved running-config temporarily to temp/HQ2_CoreSW_20250925-142413.cfg
+2025-09-25 14:24:14,060 INFO     First run – saved initial backup to configs/HQ2_CoreSW.cfg
+2025-09-25 14:24:14,434 INFO     Saved running-config temporarily to temp/HQ2_AggSW_20250925-142414.cfg
+2025-09-25 14:24:14,439 INFO     First run – saved initial backup to configs/HQ2_AggSW.cfg
+2025-09-25 14:24:15,032 INFO     Saved running-config temporarily to temp/HQ1_FW_20250925-142415.cfg
+2025-09-25 14:24:15,036 INFO     First run – saved initial backup to configs/HQ1_FW.cfg
+2025-09-25 14:24:16,630 INFO     Saved running-config temporarily to temp/HQ2_AccSW_20250925-142416.cfg
+2025-09-25 14:24:16,639 INFO     First run – saved initial backup to configs/HQ2_AccSW.cfg
+2025-09-25 14:24:17,147 INFO     Connected to 30.0.2.18
+2025-09-25 14:24:17,414 INFO     Connected to 30.0.2.4
+2025-09-25 14:24:18,766 INFO     Connected to 30.0.2.3
+2025-09-25 14:24:20,999 INFO     Saved running-config temporarily to temp/HQ2_FW_20250925-142420.cfg
+2025-09-25 14:24:21,012 INFO     First run – saved initial backup to configs/HQ2_FW.cfg
+2025-09-25 14:24:25,615 INFO     Saved running-config temporarily to temp/HQ2_R2_20250925-142425.cfg
+2025-09-25 14:24:25,650 INFO     First run – saved initial backup to configs/HQ2_R2.cfg
+2025-09-25 14:24:28,865 INFO     Saved running-config temporarily to temp/HQ2_R1_20250925-142428.cfg
+2025-09-25 14:24:28,892 INFO     First run – saved initial backup to configs/HQ2_R1.cfg

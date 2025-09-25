@@ -1,0 +1,18 @@
+2025-09-25 14:36:42,416 INFO     
+Log file is saving to logs/config_guardian_20250925-143642.log
+
+2025-09-25 14:36:42,435 INFO     
+Log file is saving to logs/config_guardian_20250925-143642.log
+
+2025-09-25 14:36:50,822 INFO     Connected to 30.0.1.2
+2025-09-25 14:36:53,496 INFO     Connected to 30.0.1.3
+2025-09-25 14:36:53,979 INFO     Saved running-config temporarily to temp/DC2_FW_20250925-143653.cfg
+2025-09-25 14:36:53,984 INFO     First run – saved initial backup to configs/DC2_FW.cfg
+2025-09-25 14:36:55,262 INFO     Connected to 30.0.1.5
+2025-09-25 14:36:55,443 INFO     Saved running-config temporarily to temp/DC2_CoreSW_20250925-143655.cfg
+2025-09-25 14:36:55,451 INFO     First run – saved initial backup to configs/DC2_CoreSW.cfg
+2025-09-25 14:36:56,821 INFO     Connected to 30.0.1.4
+2025-09-25 14:36:58,083 INFO     Saved running-config temporarily to temp/DC2_TORSw2_20250925-143658.cfg
+2025-09-25 14:36:58,086 INFO     First run – saved initial backup to configs/DC2_TORSw2.cfg
+2025-09-25 14:37:01,798 INFO     Saved running-config temporarily to temp/DC2_TORSw1_20250925-143701.cfg
+2025-09-25 14:37:01,802 INFO     First run – saved initial backup to configs/DC2_TORSw1.cfg

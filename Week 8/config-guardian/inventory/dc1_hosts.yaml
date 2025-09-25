@@ -1,0 +1,15 @@
+devices:
+
+  # DC1 DEVICES
+
+  - device_type: cisco_ios
+    host: 30.0.0.1
+    username: Samuel
+    password: Samuel@123
+    port: 22
+
+  - device_type: cisco_ios
+    host: 30.0.0.2
+    username: Samuel
+    password: Samuel@123
+    port: 22
