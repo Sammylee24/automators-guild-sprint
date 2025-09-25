@@ -1,0 +1,40 @@
+devices:
+
+  # ISP1 DEVICES
+
+  - device_type: cisco_ios
+    host: 10.0.0.1
+    username: Samuel
+    password: Samuel@123
+    port: 22
+
+  - device_type: cisco_ios
+    host: 10.0.0.2
+    username: Samuel
+    password: Samuel@123
+    port: 22
+
+  - device_type: cisco_ios
+    host: 10.0.0.3
+    username: Samuel
+    password: Samuel@123
+    port: 22
+
+  - device_type: cisco_ios
+    host: 10.0.0.4
+    username: Samuel
+    password: Samuel@123
+    port: 22
+
+  - device_type: cisco_ios
+    host: 10.0.0.5
+    username: Samuel
+    password: Samuel@123
+    port: 22
+
+  - device_type: cisco_ios
+    host: 10.0.0.6
+    username: Samuel
+    password: Samuel@123
+    port: 22
+    

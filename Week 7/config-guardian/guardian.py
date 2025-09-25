@@ -22,6 +22,7 @@ git_lock = Lock()
 CONFIG_DIR = "configs"
 TEMP_DIR = "temp"
 LOGS_DIR = "logs"
+INVENTORY_DIR = "inventory"
 DATE_FORMAT = "%Y%m%d-%H%M%S"
 
 # Vendor-Specific Command Mapping
@@ -79,8 +80,8 @@ def parse_args():
     )
     parser.add_argument(
         "-i", "--inventory",
-        default="hosts.yaml",
-        help="Path to inventory YAML file (default: hosts.yaml)"
+        default=f"{INVENTORY_DIR}/hosts.yaml",
+        help="Path to inventory YAML file (default: inventory/hosts.yaml)"
     )
     parser.add_argument(
         "-v", "--verbose",
