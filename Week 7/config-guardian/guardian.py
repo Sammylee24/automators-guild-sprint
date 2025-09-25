@@ -53,16 +53,15 @@ def safe_run(default_return=None):
                 return func(*args, **kwargs)
             except Exception as e:
                 # logs stacktrace automatically
-                logger.exception("[%s] error", func.__name__)
+                logger.exception(f"[%s] error", func.__name__)
                 return default_return
         return wrapper
     return decorator
 
-@safe_run(default_return=(None))
 def setup_logger(
     name="config_guardian",
     log_file=f"{LOGS_DIR}/config_guardian_{datetime.now().strftime(DATE_FORMAT)}.log",
-    level=logging.INFO,
+    level=logging.DEBUG,
     max_bytes=5_000_000,
     backup_count=5
 ):
@@ -84,6 +83,7 @@ def setup_logger(
         ch = logging.StreamHandler()
         ch.setFormatter(fmt)
         logger.addHandler(ch)
+    logger.info(f"\nLog file is saving to {log_file}\n")
 
     return logger
 
@@ -95,7 +95,7 @@ def get_device_config(device):
     """
     # Connect to device
     ssh = ConnectHandler(**device)
-    logger.info(f"Connected to {device['host']}")
+    logger.info("Connected to %s", device['host'])
     if device['device_type'] == 'cisco_ios':
         # Enable for Cisco devices
         ssh.enable()
@@ -129,7 +129,7 @@ def save_temp_config(hostname, running_config):
     # Save running-config to file
     with open(temp_file, 'w') as f:
         f.write(running_config)
-    logger.info(f"Saved running-config temporarily to {temp_file}")
+    logger.info("Saved running-config temporarily to %s", temp_file)
     return (temp_file, config_file, timestamp)
 
 @safe_run()
@@ -138,8 +138,8 @@ def update_and_commit(config_file, temp_file, hostname, timestamp):
     if os.path.exists(config_file):
         diff_output = compare_configs(config_file, temp_file)
         if diff_output:
-            logger.info("CHANGE DETECTED!")
-            logger.info(diff_output)
+            logger.warning("CHANGE DETECTED for %s", hostname)
+            logger.debug("\n%s", diff_output)
             shutil.copy(temp_file, config_file)
             logger.info(f"Updated {config_file} for {hostname}")
             
@@ -225,7 +225,6 @@ def main():
     # Create the directories if they do not exist
     os.makedirs(CONFIG_DIR, exist_ok=True)
     os.makedirs(TEMP_DIR, exist_ok=True)
-    os.makedirs(LOGS_DIR, exist_ok=True)
 
     with open('hosts.yaml', 'r') as file:
         # Convert YAML to Python dictionary
@@ -242,5 +241,6 @@ def main():
 
 if __name__ == "__main__":
     # Setup logger
+    os.makedirs(LOGS_DIR, exist_ok=True)
     logger = setup_logger()
     main()
