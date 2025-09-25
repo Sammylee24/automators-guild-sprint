@@ -9,9 +9,13 @@ import subprocess
 import re
 from functools import wraps
 import traceback
+import logging
+from logging.handlers import RotatingFileHandler
 
+# Constants definition
 CONFIG_DIR = "configs"
 TEMP_DIR = "temp"
+LOGS_DIR = "logs"
 DATE_FORMAT = "%Y%m%d-%H%M%S"
 
 # Vendor-Specific Command Mapping
@@ -39,7 +43,7 @@ COMMANDS = {
 
 def safe_run(default_return=None):
     """
-    Decorator to catch and print exceptions for a function,
+    Decorator to catch and log exceptions for a function,
     then return a default value.
     """
     def decorator(func):
@@ -48,11 +52,40 @@ def safe_run(default_return=None):
             try:
                 return func(*args, **kwargs)
             except Exception as e:
-                print(f"[ERROR] {func.__name__}: {e}")
-                traceback.print_exc()
+                # logs stacktrace automatically
+                logger.exception("[%s] error", func.__name__)
                 return default_return
         return wrapper
     return decorator
+
+@safe_run(default_return=(None))
+def setup_logger(
+    name="config_guardian",
+    log_file=f"{LOGS_DIR}/config_guardian_{datetime.now().strftime(DATE_FORMAT)}.log",
+    level=logging.INFO,
+    max_bytes=5_000_000,
+    backup_count=5
+):
+    """
+    Create and configure a logger with rotating file + console.
+    Call once at startup and reuse the returned logger.
+    """
+    logger = logging.getLogger(name)
+    logger.setLevel(level)
+
+    # avoid adding handlers twice if called again
+    if not logger.handlers:
+        fmt = logging.Formatter("%(asctime)s %(levelname)-8s %(message)s")
+
+        fh = RotatingFileHandler(log_file, maxBytes=max_bytes, backupCount=backup_count)
+        fh.setFormatter(fmt)
+        logger.addHandler(fh)
+
+        ch = logging.StreamHandler()
+        ch.setFormatter(fmt)
+        logger.addHandler(ch)
+
+    return logger
 
 @safe_run(default_return=(None, None, None))
 def get_device_config(device):
@@ -62,7 +95,7 @@ def get_device_config(device):
     """
     # Connect to device
     ssh = ConnectHandler(**device)
-    print(f"Connected to {device['host']}")
+    logger.info(f"Connected to {device['host']}")
     if device['device_type'] == 'cisco_ios':
         # Enable for Cisco devices
         ssh.enable()
@@ -96,7 +129,7 @@ def save_temp_config(hostname, running_config):
     # Save running-config to file
     with open(temp_file, 'w') as f:
         f.write(running_config)
-    print(f"Saved running-config temporarily to {temp_file}")
+    logger.info(f"Saved running-config temporarily to {temp_file}")
     return (temp_file, config_file, timestamp)
 
 @safe_run()
@@ -105,19 +138,19 @@ def update_and_commit(config_file, temp_file, hostname, timestamp):
     if os.path.exists(config_file):
         diff_output = compare_configs(config_file, temp_file)
         if diff_output:
-            print("CHANGE DETECTED!")
-            print(diff_output)
+            logger.info("CHANGE DETECTED!")
+            logger.info(diff_output)
             shutil.copy(temp_file, config_file)
-            print(f"Updated {config_file} for {hostname}")
+            logger.info(f"Updated {config_file} for {hostname}")
             
             # Commit changes to git
             commit_changes(config_file, hostname, timestamp)
         else:
-            print("No changes detected")
+            logger.info("No changes detected")
     else:
         # First time: just save directly
         shutil.copy(temp_file, config_file)
-        print(f"First run – saved initial backup to {config_file}")
+        logger.info(f"First run – saved initial backup to {config_file}")
 
 @safe_run(default_return=[])
 def clean_config_lines(lines):
@@ -181,7 +214,7 @@ def commit_changes(filename, hostname, detect_time):
     # Commit with a custom message
     commit_message = f"Config change detected on {hostname} at {detect_time}"
     subprocess.run(["git", "commit", "-m", commit_message], check=True)
-    print(f"Committed {filename} to git with message: '{commit_message}'")
+    logger.info(f"Committed {filename} to git with message: '{commit_message}'")
 
 @safe_run()
 def disconnect_device(ssh):
@@ -192,6 +225,7 @@ def main():
     # Create the directories if they do not exist
     os.makedirs(CONFIG_DIR, exist_ok=True)
     os.makedirs(TEMP_DIR, exist_ok=True)
+    os.makedirs(LOGS_DIR, exist_ok=True)
 
     with open('hosts.yaml', 'r') as file:
         # Convert YAML to Python dictionary
@@ -204,7 +238,9 @@ def main():
             update_and_commit(config_file, temp_file, hostname, timestamp)
             disconnect_device(ssh)
         else:
-            print(f"Skipping {device['host']} because connection/config failed")
+            logger.info(f"Skipping {device['host']} because connection/config failed")
 
 if __name__ == "__main__":
+    # Setup logger
+    logger = setup_logger()
     main()
