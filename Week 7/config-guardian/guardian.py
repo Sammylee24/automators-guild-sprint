@@ -13,8 +13,9 @@ from logging.handlers import RotatingFileHandler
 from concurrent.futures import ThreadPoolExecutor
 from tqdm import tqdm
 from threading import Lock
+import argparse
 
-# create one global lock
+# Create one global lock
 git_lock = Lock()
 
 # Constants definition
@@ -72,30 +73,51 @@ class TqdmLoggingHandler(logging.Handler):
         except Exception:
             self.handleError(record)
 
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="Config guardian — backup device configs and commit changes to git."
+    )
+    parser.add_argument(
+        "-i", "--inventory",
+        default="hosts.yaml",
+        help="Path to inventory YAML file (default: hosts.yaml)"
+    )
+    parser.add_argument(
+        "-v", "--verbose",
+        action="store_true",
+        help="Enable verbose console logging (DEBUG)."
+    )
+    return parser.parse_args()
+
 def setup_logger(
     name="config_guardian",
     log_file=f"{LOGS_DIR}/config_guardian_{datetime.now().strftime(DATE_FORMAT)}.log",
-    level=logging.DEBUG,
+    file_level=logging.DEBUG,        # log file level (captures everything)
+    console_level=logging.INFO,      # console level (default INFO)
     max_bytes=5_000_000,
     backup_count=5
 ):
     logger = logging.getLogger(name)
-    logger.setLevel(level)
+
+    # ensure logger root level allows handlers to filter
+    logger.setLevel(logging.DEBUG)
 
     if not logger.handlers:
         fmt = logging.Formatter("%(asctime)s %(levelname)-8s %(message)s")
 
-        # rotating file handler
+        # rotating file handler (captures file_level and above)
         fh = RotatingFileHandler(log_file, maxBytes=max_bytes, backupCount=backup_count)
         fh.setFormatter(fmt)
+        fh.setLevel(file_level)
         logger.addHandler(fh)
 
         # console handler replaced with tqdm-safe handler
         ch = TqdmLoggingHandler()
         ch.setFormatter(fmt)
+        ch.setLevel(console_level)
         logger.addHandler(ch)
 
-    logger.info(f"\nLog file is saving to {log_file}\n")
+    logger.info("\nLog file is saving to %s\n", log_file)
     return logger
 
 @safe_run(default_return=(None, None, None))
@@ -241,12 +263,12 @@ def process_device(device):
     else:
         logger.info(f"Skipping {device['host']} because connection/config failed")
     
-def main():
+def main(inventory_path):
     # Create the directories if they do not exist
     os.makedirs(CONFIG_DIR, exist_ok=True)
     os.makedirs(TEMP_DIR, exist_ok=True)
 
-    with open('hosts.yaml', 'r') as file:
+    with open(inventory_path, 'r') as file:
         # Convert YAML to Python dictionary
         data = yaml.safe_load(file)
     
@@ -271,4 +293,13 @@ if __name__ == "__main__":
     # Setup logger
     os.makedirs(LOGS_DIR, exist_ok=True)
     logger = setup_logger()
-    main()
+
+    args = parse_args()
+
+    # set console level based on --verbose flag
+    console_level = logging.DEBUG if args.verbose else logging.INFO
+
+    # create logger (file will still default to DEBUG so diffs are recorded)
+    logger = setup_logger(console_level=console_level)
+    
+    main(args.inventory)
