@@ -124,28 +124,52 @@ def setup_logger(
 @safe_run(default_return=(None, None, None))
 def get_device_config(device):
     """
-    This connects to device and return
-    the running configuration
+    Connect to a device and return (hostname, running_config, ssh_connection).
+    Handles banners and long outputs gracefully.
     """
-    # Connect to device
-    ssh = ConnectHandler(**device)
+    # Increase delay factor to handle slow/long-running commands
+    ssh = ConnectHandler(**device, global_delay_factor=2)
     logger.info("Connected to %s", device['host'])
+
+    # Cisco needs enable
     if device['device_type'] == 'cisco_ios':
-        # Enable for Cisco devices
         ssh.enable()
-    
-    # Get running-configuration
+
+    # Determine commands for this vendor
     device_type = device.get('device_type', 'unknown')
     run_cmd = COMMANDS.get(device_type, {}).get('running_config')
-    running_config = ssh.send_command(run_cmd)
-    # Extract device hostname
+
+    # Safely run the main config command with longer timeout
+    running_config = ssh.send_command(run_cmd, read_timeout=60)
+
+    # Hostname extraction
     if device_type != 'mikrotik_routeros':
-        raw_hostname = ssh.send_command(COMMANDS.get(device_type, {}).get('hostname'))
+        host_cmd = COMMANDS.get(device_type, {}).get('hostname')
         to_find = COMMANDS.get(device_type, {}).get('to_find')
-        hostname = raw_hostname.replace(to_find, "").strip().replace(";", "").strip()
+
+        raw_hostname = ssh.send_command(host_cmd)
+
+        # Pick only the line containing the keyword
+        lines = [l for l in raw_hostname.splitlines() if to_find in l]
+        if lines:
+            clean_line = lines[-1]  # Last matching line usually has the real name
+            # Try regex first
+            match = re.search(rf"{to_find}\s+(\S+)", clean_line)
+            if match:
+                hostname = match.group(1)
+            else:
+                hostname = clean_line.replace(to_find, "").strip().replace(";", "")
+        else:
+            # Fallback to IP/host if we didn't match anything
+            hostname = device['host']
     else:
+        # Mikrotik prompt looks like: [user@hostname] >
         raw_value = f"[{device['username']}@"
-        hostname = ssh.find_prompt().replace("] >", "").strip().replace(raw_value, "").strip()
+        prompt = ssh.find_prompt()
+        hostname = (
+            prompt.replace("] >", "").strip().replace(raw_value, "").strip()
+        )
+
     return (hostname, running_config, ssh)
 
 @safe_run(default_return=(None, None, None))
