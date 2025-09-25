@@ -8,11 +8,14 @@ from datetime import datetime
 import subprocess
 import re
 from functools import wraps
-import traceback
 import logging
 from logging.handlers import RotatingFileHandler
 from concurrent.futures import ThreadPoolExecutor
 from tqdm import tqdm
+from threading import Lock
+
+# create one global lock
+git_lock = Lock()
 
 # Constants definition
 CONFIG_DIR = "configs"
@@ -217,12 +220,12 @@ def commit_changes(filename, hostname, detect_time):
     :param filename: Path to the file to commit
     :param hostname: Device hostname to include in commit message
     """
-    # Stage the file
-    subprocess.run(["git", "add", filename], check=True)
-    # Commit with a custom message
-    commit_message = f"Config change detected on {hostname} at {detect_time}"
-    subprocess.run(["git", "commit", "-m", commit_message], check=True)
-    logger.info(f"Committed {filename} to git with message: '{commit_message}'")
+    # only one thread in here at a time to avoid git index lock
+    with git_lock:
+        subprocess.run(["git", "add", filename], check=True)
+        commit_message = f"Config change detected on {hostname} at {detect_time}"
+        subprocess.run(["git", "commit", "-m", commit_message], check=True)
+        logger.info(f"Committed {filename} to git with message: '{commit_message}'")
 
 @safe_run()
 def disconnect_device(ssh):
