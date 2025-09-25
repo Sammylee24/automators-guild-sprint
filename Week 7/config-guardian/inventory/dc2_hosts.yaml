@@ -1,0 +1,27 @@
+devices:
+
+  # DC2 DEVICES
+
+  - device_type: huawei_vrp
+    host: 30.0.1.2
+    username: Samuel
+    password: Samuel@123
+    port: 22
+
+  - device_type: huawei_vrp
+    host: 30.0.1.3
+    username: Samuel
+    password: Samuel@123
+    port: 22
+
+  - device_type: huawei_vrp
+    host: 30.0.1.4
+    username: Samuel
+    password: Samuel@123
+    port: 22
+
+  - device_type: huawei_vrp
+    host: 30.0.1.5
+    username: Samuel
+    password: Samuel@123
+    port: 22

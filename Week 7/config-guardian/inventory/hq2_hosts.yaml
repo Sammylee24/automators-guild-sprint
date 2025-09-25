@@ -1,0 +1,45 @@
+devices:
+
+  # HQ2 DEVICES
+
+  - device_type: huawei_vrp
+    host: 30.0.2.3
+    username: Samuel
+    password: Samuel@123
+    port: 22
+
+  - device_type: huawei_vrp
+    host: 30.0.2.4
+    username: Samuel
+    password: Samuel@123
+    port: 22
+
+  - device_type: cisco_ios
+    host: 30.0.2.5
+    username: Samuel
+    password: Samuel@123
+    port: 22
+
+  - device_type: cisco_ios
+    host: 30.0.2.10
+    username: Samuel
+    password: Samuel@123
+    port: 22
+
+  - device_type: cisco_ios
+    host: 30.0.2.13
+    username: Samuel
+    password: Samuel@123
+    port: 22
+
+  - device_type: cisco_ios
+    host: 30.0.2.14
+    username: Samuel
+    password: Samuel@123
+    port: 22
+
+  - device_type: cisco_ios
+    host: 30.0.2.17
+    username: Samuel
+    password: Samuel@123
+    port: 22

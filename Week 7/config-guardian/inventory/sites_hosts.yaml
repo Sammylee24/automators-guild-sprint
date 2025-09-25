@@ -1,0 +1,45 @@
+devices:
+
+  # SITES DEVICES
+
+  - device_type: cisco_ios
+    host: 20.0.0.8
+    username: Samuel
+    password: Samuel@123
+    port: 22
+
+  - device_type: cisco_ios
+    host: 20.0.0.9
+    username: Samuel
+    password: Samuel@123
+    port: 22
+
+  - device_type: cisco_ios
+    host: 20.0.0.10
+    username: Samuel
+    password: Samuel@123
+    port: 22
+
+  - device_type: cisco_ios
+    host: 20.0.0.16
+    username: Samuel
+    password: Samuel@123
+    port: 22
+
+  - device_type: cisco_ios
+    host: 20.0.0.18
+    username: Samuel
+    password: Samuel@123
+    port: 22
+
+  - device_type: mikrotik_routeros
+    host: 20.0.0.19
+    username: Samuel
+    password: Samuel@123
+    port: 22
+
+  - device_type: juniper_junos
+    host: 20.0.0.20
+    username: root
+    password: Samuel@123
+    port: 22
