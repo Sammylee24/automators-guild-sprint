@@ -240,13 +240,23 @@ def main():
     with open('hosts.yaml', 'r') as file:
         # Convert YAML to Python dictionary
         data = yaml.safe_load(file)
+    
+    devices = data['devices']
 
     """
     Run devices in parallel
     Use tqdm to show progress bar
     """
     with ThreadPoolExecutor(max_workers=10) as executor:
-        executor.map(process_device, data['devices'])
+        # executor.map returns an iterator of results
+        list(
+            tqdm(
+                executor.map(process_device, devices),
+                total=len(devices),
+                desc="Processing devices",
+                unit="device"
+            )
+        )
 
 if __name__ == "__main__":
     # Setup logger
