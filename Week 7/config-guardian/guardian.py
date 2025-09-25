@@ -11,6 +11,8 @@ from functools import wraps
 import traceback
 import logging
 from logging.handlers import RotatingFileHandler
+from concurrent.futures import ThreadPoolExecutor
+from tqdm import tqdm
 
 # Constants definition
 CONFIG_DIR = "configs"
@@ -220,6 +222,15 @@ def commit_changes(filename, hostname, detect_time):
 def disconnect_device(ssh):
     # Disconnect from device
     ssh.disconnect()
+
+def process_device(device):
+    hostname, running_config, ssh = get_device_config(device)
+    if hostname and running_config:
+        temp_file, config_file, timestamp = save_temp_config(hostname, running_config)
+        update_and_commit(config_file, temp_file, hostname, timestamp)
+        disconnect_device(ssh)
+    else:
+        logger.info(f"Skipping {device['host']} because connection/config failed")
     
 def main():
     # Create the directories if they do not exist
@@ -230,14 +241,12 @@ def main():
         # Convert YAML to Python dictionary
         data = yaml.safe_load(file)
 
-    for device in data['devices']:
-        hostname, running_config, ssh = get_device_config(device)
-        if hostname and running_config:
-            temp_file, config_file, timestamp = save_temp_config(hostname, running_config)
-            update_and_commit(config_file, temp_file, hostname, timestamp)
-            disconnect_device(ssh)
-        else:
-            logger.info(f"Skipping {device['host']} because connection/config failed")
+    """
+    Run devices in parallel
+    Use tqdm to show progress bar
+    """
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        executor.map(process_device, data['devices'])
 
 if __name__ == "__main__":
     # Setup logger
