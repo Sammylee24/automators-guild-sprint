@@ -1,0 +1,54 @@
+---
+- name: Display & Backup Running Configuration on Network Devices
+  hosts: cisco_ios,huawei_vrp
+  gather_facts: false
+
+  vars:
+    timestamp: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
+
+  tasks:
+    - name: Ensure backups directory exists locally
+      delegate_to: localhost
+      become: false
+      ansible.builtin.file:
+        path: "./backups"
+        state: directory
+        mode: '0755'
+
+    # --- Huawei ---
+    - name: Show Huawei config
+      community.network.ce_command:
+        commands:
+          - display current-configuration
+      register: ce_output
+      when: ansible_network_os == 'community.network.ce'
+
+    - name: Save Huawei config locally
+      delegate_to: localhost
+      become: false
+      ansible.builtin.copy:
+        content: "{{ ce_output.stdout_lines | join('\n') }}"
+        dest: "./backups/{{ inventory_hostname }}_huawei_{{ timestamp }}.cfg"
+      when:
+        - ce_output is defined
+        - ce_output.stdout_lines is defined
+        - ce_output.stdout_lines|length > 0
+
+    # --- Cisco ---
+    - name: Show Cisco config
+      cisco.ios.ios_command:
+        commands:
+          - show running-config
+      register: ios_output
+      when: ansible_network_os == 'cisco.ios.ios'
+
+    - name: Save Cisco config locally
+      delegate_to: localhost
+      become: false
+      ansible.builtin.copy:
+        content: "{{ ios_output.stdout_lines | join('\n') }}"
+        dest: "./backups/{{ inventory_hostname }}_cisco_{{ timestamp }}.cfg"
+      when:
+        - ios_output is defined
+        - ios_output.stdout_lines is defined
+        - ios_output.stdout_lines|length > 0
