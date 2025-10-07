@@ -13,7 +13,7 @@ router = {
 # Connect to device
 ssh = ConnectHandler(**router)
 
-# Enter device ebale mode
+# Enter device enable mode
 ssh.enable()
 
 # Execute command on device

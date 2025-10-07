@@ -1,0 +1,79 @@
+2025-09-25 14:37:13,360 INFO     
+Log file is saving to logs/config_guardian_20250925-143713.log
+
+2025-09-25 14:37:13,375 INFO     
+Log file is saving to logs/config_guardian_20250925-143713.log
+
+2025-09-25 14:37:15,684 INFO     Connected to 20.0.0.16
+2025-09-25 14:37:15,694 INFO     Connected to 20.0.0.8
+2025-09-25 14:37:15,876 INFO     Connected to 20.0.0.19
+2025-09-25 14:37:16,102 INFO     Connected to 20.0.0.18
+2025-09-25 14:37:17,906 INFO     Saved running-config temporarily to temp/Satellite_Site3_20250925-143717.cfg
+2025-09-25 14:37:17,908 INFO     First run – saved initial backup to configs/Satellite_Site3.cfg
+2025-09-25 14:37:17,919 INFO     Saved running-config temporarily to temp/Remote_Site1_20250925-143717.cfg
+2025-09-25 14:37:17,927 WARNING  CHANGE DETECTED for Remote_Site1
+2025-09-25 14:37:17,928 DEBUG    
+--- configs/Remote_Site1.cfg
++++ temp/Remote_Site1_20250925-143717.cfg
+@@ -1,6 +1,5 @@
+ 
+
+   
+
+-!
+
+ !
+
+ version 15.7
+
+ service timestamps debug datetime msec
+
+2025-09-25 14:37:17,930 INFO     Updated configs/Remote_Site1.cfg for Remote_Site1
+2025-09-25 14:37:18,218 INFO     Connected to 20.0.0.9
+2025-09-25 14:37:18,300 INFO     Committed configs/Remote_Site1.cfg to git with message: 'Config change detected on Remote_Site1 at 20250925-143717'
+2025-09-25 14:37:18,488 INFO     Saved running-config temporarily to temp/Warehouse_Site1_20250925-143718.cfg
+2025-09-25 14:37:18,491 INFO     No changes detected
+2025-09-25 14:37:18,599 INFO     Connected to 20.0.0.20
+2025-09-25 14:37:20,317 INFO     Saved running-config temporarily to temp/Remote_Site3;_20250925-143720.cfg
+2025-09-25 14:37:20,321 INFO     First run – saved initial backup to configs/Remote_Site3;.cfg
+2025-09-25 14:37:20,345 INFO     Saved running-config temporarily to temp/Satellite_Site1_20250925-143720.cfg
+2025-09-25 14:37:20,353 INFO     No changes detected
+2025-09-25 14:37:23,401 ERROR    [get_device_config] error
+Traceback (most recent call last):
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 1146, in establish_connection
+    self.remote_conn_pre.connect(**ssh_connect_params)
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\paramiko\client.py", line 386, in connect
+    sock.connect(addr)
+TimeoutError: timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\adeba\automators-guild-sprint\automators-guild-sprint\Week 7\config-guardian\guardian.py", line 60, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adeba\automators-guild-sprint\automators-guild-sprint\Week 7\config-guardian\guardian.py", line 131, in get_device_config
+    ssh = ConnectHandler(**device, global_delay_factor=2)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\ssh_dispatcher.py", line 460, in ConnectHandler
+    return ConnectionClass(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 495, in __init__
+    self._open()
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 500, in _open
+    self.establish_connection()
+  File "C:\Users\adeba\AppData\Roaming\Python\Python311\site-packages\netmiko\base_connection.py", line 1168, in establish_connection
+    raise NetmikoTimeoutException(msg)
+netmiko.exceptions.NetmikoTimeoutException: TCP connection to device failed.
+
+Common causes of this problem are:
+1. Incorrect hostname or IP address.
+2. Wrong TCP port.
+3. Intermediate firewall blocking access.
+
+Device settings: cisco_ios 20.0.0.10:22
+
+
+2025-09-25 14:37:23,423 INFO     Skipping 20.0.0.10 because connection/config failed
+2025-09-25 14:37:36,809 INFO     Saved running-config temporarily to temp/Remote_Site2_20250925-143736.cfg
+2025-09-25 14:37:36,817 INFO     First run – saved initial backup to configs/Remote_Site2.cfg
